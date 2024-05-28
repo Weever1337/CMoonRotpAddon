@@ -1,0 +1,23 @@
+{
+  "entity.rotp_cm.cmoon": "C-Moon",
+  "stand.rotp_cm.cmoon": "C-Moon",
+
+  "action.rotp_cm.cm_punch": "Punch",
+  "action.rotp_cm.cm_heavy_punch": "Heavy Punch",
+  "action.rotp_cm.cm_gravity_punch": "Gravity Punch",
+  "action.rotp_cm.cm_inversion_punch": "Inversion Punch",
+  "action.rotp_cm.cm_barrage": "Barrage",
+  "action.rotp_cm.cm_block": "Block",
+  "action.rotp_cm.cm_moon": "Hello, Moon!",
+  "action.rotp_cm.cm_go_to_moon": "Go to Moon!",
+  "action.rotp_cm.cm_attack": "Attack him!",
+  "action.rotp_cm.cm_gravitational_changes": "Gravitational Changes",
+  "action.rotp_cm.cm_awakening": "Awakening",
+  "action.rotp_cm.cm_gravitational_barrier": "Gravitational Barrier",
+
+  "jojo.message.action_condition.cant_control_stand": "Can't control the stand now",
+  "jojo.message.action_condition.cant_unsummon_stand": "Can't unsummon the stand now",
+  "jojo.message.action_condition.cant_choose_abilities": "Can't select two abilities at the same time",
+  "effect.rotp_cm.cm_inversion": "Inversion",
+  "effect.rotp_cm.cm_awakening": "Awakening"
+}

@@ -1,0 +1,42 @@
+{
+  "cm_summon": {
+    "sounds": [ "rotp_cm:stand_user/cm_summon" ]
+  },
+  "cm_pucci_light_punch": {
+    "sounds": [ "rotp_cm:stand_user/pucci_punch1", "rotp_cm:stand_user/pucci_punch2", "rotp_cm:stand_user/pucci_punch3", "rotp_cm:stand_user/pucci_punch4"
+    ]
+  },
+  "cm_pucci_heavy_punch": {
+    "sounds": [ "rotp_cm:stand_user/pucci_heavy_punch1", "rotp_cm:stand_user/pucci_heavy_punch2" ]
+  },
+  "cm_pucci_finisher": {
+    "sounds": [ "rotp_cm:stand_user/pucci_finisher" ]
+  },
+
+
+  "cm_light_punch": {
+    "sounds": [ "rotp_cm:stand/cm_light_punch1", "rotp_cm:stand/cm_light_punch2", "rotp_cm:stand/cm_light_punch3", "rotp_cm:stand/cm_light_punch4" ]
+  },
+  "cm_heavy_punch": {
+    "sounds": [ "rotp_cm:stand/cm_heavy_punch" ]
+  },
+  "cm_finisher": {
+    "sounds": [ "rotp_cm:stand/cm_finisher" ]
+  },
+  "cm_barrage": {
+    "sounds": [ "rotp_cm:stand/cm_barrage", "rotp_cm:stand/cm_barrage2" ]
+  },
+
+  "cm_moon": {
+    "sounds": [ "rotp_cm:cm_moon" ]
+  },
+  "cm_attack": {
+    "sounds": [ "rotp_cm:cm_attack" ]
+  },
+  "cm_inversion_punch": {
+    "sounds": [ "rotp_cm:cm_inversion_punch" ]
+  },
+  "cm_awakening":{
+    "sounds": [ "rotp_cm:cmoon_awakening" ]
+  }
+}
