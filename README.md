@@ -2,6 +2,7 @@
 An addon mod for [Ripples of the Past](https://github.com/StandoByte/Ripples-of-the-Past), a mod for Minecraft based on JoJo's Bizarre Adventure.
 
 # ❤️ Credits:
-- StandoByte
-- hk47bit
-- Top1545
+- StandoByte => [Ripples of the Past](https://github.com/StandoByte/Ripples-of-the-Past)
+- hk47bit => With C-Moon model
+- Top1545 => With C-Moon textures + sounds
+- Chaynik => "Attack him!" ability from [Purple Haze](https://github.com/parmezannchik/PurpleHazeRotp-/tree/main)
