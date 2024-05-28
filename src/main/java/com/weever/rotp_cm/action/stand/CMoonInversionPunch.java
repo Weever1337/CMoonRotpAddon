@@ -35,11 +35,11 @@ public class CMoonInversionPunch extends StandEntityHeavyAttack {
         int amplifier;
         if (!user.hasEffect(InitEffects.CM_AWAKENING.get())) { amplifier = 0; }
         else amplifier = user.getEffect(InitEffects.CM_AWAKENING.get()).getAmplifier();
+
         if (target instanceof LivingEntity) {
             LivingEntity livingTarget = (LivingEntity) target;
             ((LivingEntity) target).addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), 50, amplifier+3));
         }
-
         if (user.hasEffect(InitEffects.CM_AWAKENING.get())) {
             target.hurt(dmgSource, amplifier+1);
         }
