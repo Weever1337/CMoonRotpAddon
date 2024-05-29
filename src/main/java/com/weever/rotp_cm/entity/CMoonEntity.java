@@ -126,18 +126,17 @@ public class CMoonEntity extends StandEntity {
             IStandPower userPower = this.getUserPower();
             userPower.toggleSummon();
         } else if (this.isAtt()) {
-            if (this.getCurrentTaskAction() == ModStandsInit.UNSUMMON_STAND_ENTITY.get() && user instanceof PlayerEntity) {
-                this.setAttOrNot(false);
-            } else if (this.getCurrentTaskAction() == InitStands.CMOON_BLOCK.get() && user instanceof PlayerEntity) {
-                this.setAttOrNot(false);
+            if (this.getCurrentTaskAction() == ModStandsInit.UNSUMMON_STAND_ENTITY.get() && user instanceof PlayerEntity){
+                PlayerEntity player = (PlayerEntity) this.getUser ();
+                this.stopTask();
+                player.displayClientMessage(new TranslationTextComponent("jojo.message.action_condition.cant_control_stand"), true);
             }
             LivingEntity livingTarget = null;
 
             Entity curTarget = getCurrentTask().map(StandEntityTask::getTarget).orElse(ActionTarget.EMPTY).getEntity();
             if (curTarget instanceof LivingEntity && curTarget.isAlive() && curTarget.distanceToSqr(user) < range * range) {
                 livingTarget = (LivingEntity) curTarget;
-            }
-            else {
+            } else {
                 List<Entity> entitiesAround = this.level.getEntities(this, user.getBoundingBox().inflate(range),
                         entity -> (entity instanceof LivingEntity && this.checkTargets(entity)));
                 if (!entitiesAround.isEmpty()) {
@@ -187,8 +186,8 @@ public class CMoonEntity extends StandEntity {
             if (isManuallyControlled()) {
                 if (user instanceof PlayerEntity) {
                     PlayerEntity player = (PlayerEntity) getUser();
-                    StandUtil.setManualControl(player, false, false);
-                    player.displayClientMessage(new TranslationTextComponent("jojo.message.action_condition.cant_control_stand"), true);
+                    //StandUtil.setManualControl(player, false, false);
+                    setAttOrNot(false);
                 }
             }
         } else if (this.isBarr()) {
