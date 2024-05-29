@@ -210,8 +210,8 @@ public class CMoonEntity extends StandEntity {
                 if (entity instanceof LivingEntity) {
                     LivingEntity livingEntity = (LivingEntity) entity;
                     if (!livingEntity.hasEffect(Effects.LEVITATION)) {
-                        livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2, true, true, false));
-                        livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 1, true, true, false));
+                        livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2, false, false, true));
+                        livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 1, false, false, true));
                         power.consumeStamina(200);
                     }
                 } else {

@@ -43,7 +43,7 @@ public class CMoonAwakening extends StandEntityAction {
             user.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 30, 255));
             user.addEffect(new EffectInstance(Effects.BLINDNESS, 30, 255));
             user.hurt(DamageSource.MAGIC, 5.5F);
-            user.addEffect(new EffectInstance(InitEffects.CM_AWAKENING.get(), 5000, rand.nextInt(4), true, true, false));
+            user.addEffect(new EffectInstance(InitEffects.CM_AWAKENING.get(), 5000, rand.nextInt(4), false, false, true));
         }
     }
 }
