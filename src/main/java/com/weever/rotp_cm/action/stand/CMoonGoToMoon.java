@@ -25,7 +25,8 @@ public class CMoonGoToMoon extends StandEntityHeavyAttack {
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
         CMoonEntity CMoon = (CMoonEntity) stand;
-        if (CMoon.isAtt()) { return conditionMessage("cant_control_stand"); }
+        if (CMoon.isAtt()) return conditionMessage("cant_control_stand");
+        if (power.getStamina() < 100) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }
 
@@ -36,8 +37,8 @@ public class CMoonGoToMoon extends StandEntityHeavyAttack {
             LivingEntity user = stand.getUser();
             int duration = 100;
             if (user.hasEffect(InitEffects.CM_AWAKENING.get())) { duration = 200; }
-            ((LivingEntity) target).addEffect(new EffectInstance(Effects.LEVITATION, duration, 2));
-            ((LivingEntity) target).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, duration, 999));
+            ((LivingEntity) target).addEffect(new EffectInstance(Effects.LEVITATION, duration, 2, true, true, false));
+            ((LivingEntity) target).addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), duration, 999, true, true, false));
         }
         return super.punchEntity(stand, target, dmgSource);
     }

@@ -30,7 +30,7 @@ public class CMoonAwakening extends StandEntityAction {
         if (user.hasEffect(InitEffects.CM_AWAKENING.get())) return ActionConditionResult.NEGATIVE;
         CMoonEntity CMoon = (CMoonEntity) stand;
         if (CMoon.isAtt()) { return conditionMessage("cant_control_stand"); }
-        if (power.getStamina() < 300) return ActionConditionResult.NEGATIVE;
+        if (power.getStamina() < 400) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }
 
@@ -43,8 +43,7 @@ public class CMoonAwakening extends StandEntityAction {
             user.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 30, 255));
             user.addEffect(new EffectInstance(Effects.BLINDNESS, 30, 255));
             user.hurt(DamageSource.MAGIC, 5.5F);
-            user.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 5000, 1));
-            user.addEffect(new EffectInstance(InitEffects.CM_AWAKENING.get(), 5000, rand.nextInt(4)));
+            user.addEffect(new EffectInstance(InitEffects.CM_AWAKENING.get(), 5000, rand.nextInt(4), true, true, false));
         }
     }
 }

@@ -1,27 +1,15 @@
 {
   "cm_summon": {
-    "sounds": [ "rotp_cm:stand_user/cm_summon" ]
+    "sounds": [ "rotp_cm:stand/cm_summon", "rotp_cm:stand/cm_summon2" ]
   },
-  "cm_pucci_light_punch": {
-    "sounds": [ "rotp_cm:stand_user/pucci_punch1", "rotp_cm:stand_user/pucci_punch2", "rotp_cm:stand_user/pucci_punch3", "rotp_cm:stand_user/pucci_punch4"
-    ]
-  },
-  "cm_pucci_heavy_punch": {
-    "sounds": [ "rotp_cm:stand_user/pucci_heavy_punch1", "rotp_cm:stand_user/pucci_heavy_punch2" ]
-  },
-  "cm_pucci_finisher": {
-    "sounds": [ "rotp_cm:stand_user/pucci_finisher" ]
-  },
-
-
   "cm_light_punch": {
     "sounds": [ "rotp_cm:stand/cm_light_punch1", "rotp_cm:stand/cm_light_punch2", "rotp_cm:stand/cm_light_punch3", "rotp_cm:stand/cm_light_punch4" ]
   },
   "cm_heavy_punch": {
-    "sounds": [ "rotp_cm:stand/cm_heavy_punch" ]
+    "sounds": [ "rotp_cm:stand/cm_heavy_punch", "rotp_cm:stand/cm_heavy_punch2", "rotp_cm:stand/cm_heavy_punch3" ]
   },
   "cm_finisher": {
-    "sounds": [ "rotp_cm:stand/cm_finisher" ]
+    "sounds": [ "rotp_cm:stand/cm_finisher", "rotp_cm:stand/cm_finisher2" ]
   },
   "cm_barrage": {
     "sounds": [ "rotp_cm:stand/cm_barrage", "rotp_cm:stand/cm_barrage2" ]
@@ -37,6 +25,6 @@
     "sounds": [ "rotp_cm:cm_inversion_punch" ]
   },
   "cm_awakening":{
-    "sounds": [ "rotp_cm:cmoon_awakening" ]
+    "sounds": [ "rotp_cm:cm_awakening" ]
   }
 }

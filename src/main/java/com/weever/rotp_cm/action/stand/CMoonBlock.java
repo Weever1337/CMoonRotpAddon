@@ -11,10 +11,6 @@ public class CMoonBlock extends StandEntityBlock {
 
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        CMoonEntity CMoon = (CMoonEntity) stand;
-        if (CMoon.isAtt()) {
-            return conditionMessage("cant_control_stand");
-        }
         return ActionConditionResult.POSITIVE;
     }
 }

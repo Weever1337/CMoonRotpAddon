@@ -23,25 +23,27 @@ public class CMoonInversionPunch extends StandEntityHeavyAttack {
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
         CMoonEntity CMoon = (CMoonEntity) stand;
-        if (CMoon.isAtt()) {
-            return conditionMessage("cant_control_stand");
-        }
+        if (CMoon.isAtt()) return conditionMessage("cant_control_stand");
+        if (power.getStamina() < 50) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }
 
     @Override
     public StandEntityPunch punchEntity(StandEntity stand, Entity target, StandEntityDamageSource dmgSource) {
-        LivingEntity user = stand.getUser();
-        int amplifier;
-        if (!user.hasEffect(InitEffects.CM_AWAKENING.get())) { amplifier = 0; }
-        else amplifier = user.getEffect(InitEffects.CM_AWAKENING.get()).getAmplifier();
+        if (!target.level.isClientSide()) {
+            LivingEntity user = stand.getUser();
+            int amplifier;
+            if (!user.hasEffect(InitEffects.CM_AWAKENING.get())) {
+                amplifier = 0;
+            } else amplifier = user.getEffect(InitEffects.CM_AWAKENING.get()).getAmplifier();
 
-        if (target instanceof LivingEntity) {
-            LivingEntity livingTarget = (LivingEntity) target;
-            ((LivingEntity) target).addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), 50, amplifier+3));
-        }
-        if (user.hasEffect(InitEffects.CM_AWAKENING.get())) {
-            target.hurt(dmgSource, amplifier+1);
+            if (target instanceof LivingEntity) {
+                LivingEntity livingTarget = (LivingEntity) target;
+                ((LivingEntity) target).addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), 200, amplifier + 3, true, true, false));
+            }
+            if (user.hasEffect(InitEffects.CM_AWAKENING.get())) {
+                target.hurt(dmgSource, amplifier + 1);
+            }
         }
         return super.punchEntity(stand, target, dmgSource)
                 .addKnockback(0.5F + stand.getLastHeavyFinisherValue())

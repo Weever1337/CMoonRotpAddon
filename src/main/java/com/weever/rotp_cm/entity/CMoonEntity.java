@@ -2,7 +2,6 @@ package com.weever.rotp_cm.entity;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
@@ -25,6 +24,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundCategory;
@@ -117,6 +117,7 @@ public class CMoonEntity extends StandEntity {
         else {
             this.setAttOrNotWithAbility(false);
         }
+
         if (this.isAtt() && this.isBarr()) {
             PlayerEntity player = (PlayerEntity) this.getUser ();
             this.setBarrOrNot(false);
@@ -197,21 +198,30 @@ public class CMoonEntity extends StandEntity {
                 this.setBarrOrNot(false);
                 return;
             }
-            for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(10), entity -> (entity instanceof LivingEntity && this.checkTargets(entity)))){
-                LOGGER .info(entity.toString());
+            if (power.getStamina() < 10) {
+                level.playSound(null, this.blockPosition(), InitSounds.CMOON_UNSUMMON_SOUND.get(), SoundCategory.PLAYERS,1,1);
+                power.toggleSummon();
+                return;
+            }
+            for (Entity entity : MCUtil.entitiesAround(
+                    Entity.class, player, 5, false,
+                    entity -> (!(entity instanceof StandEntity)))
+            ) {
+                LOGGER.info(entity.getName().toString());
                 if (entity instanceof LivingEntity) {
                     LivingEntity livingEntity = (LivingEntity) entity;
                     if (!livingEntity.hasEffect(Effects.LEVITATION)) {
-                        livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2));
+                        livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2, true, true, false));
+                        livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 1, true, true, false));
+                        power.consumeStamina(200);
                     }
                 } else {
-                    entity.hasImpulse = false;
-                }
-                power.consumeStamina(100);
-                if (power.getStamina() < 10) {
-                    level.playSound(null, this.blockPosition(), InitSounds.CMOON_UNSUMMON_SOUND.get(), SoundCategory.PLAYERS,1,1);
-                    power.toggleSummon();
-                    break;
+                    double x = entity.getX() ;
+                    double y = entity.getY();
+                    double z = entity.getZ();
+                    entity.level.addParticle(ParticleTypes.CRIT, x, y, z, 0, 0, 0);
+                    entity.remove();
+                    power.consumeStamina(25);
                 }
             }
         }

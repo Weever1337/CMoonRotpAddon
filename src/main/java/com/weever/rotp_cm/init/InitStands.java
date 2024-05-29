@@ -33,8 +33,7 @@ public class InitStands {
     public static final RegistryObject<StandEntityAction> CMOON_PUNCH = ACTIONS.register("cm_punch",
             () -> new CMoonPunch(new StandEntityLightAttack.Builder()
                     .punchSound(InitSounds.CMOON_PUNCH_SOUND)
-                    .standSound(InitSounds.CMOON_PUNCH_LIGHT)
-                    .shout(InitSounds.CMOON_PUNCH_LIGHT_PUCCI)));
+                    .standSound(InitSounds.CMOON_PUNCH_LIGHT)));
     
     public static final RegistryObject<StandEntityAction> CMOON_BARRAGE = ACTIONS.register("cm_barrage", 
             () -> new CMoonBarrage(new StandEntityMeleeBarrage.Builder()
@@ -45,7 +44,7 @@ public class InitStands {
             () -> new CMoonGravityPunch(new StandEntityHeavyAttack.Builder()
                     .partsRequired(StandPart.ARMS)
                     .punchSound(InitSounds.CMOON_HEAVY_PUNCH_SOUND)
-                    .shout(InitSounds.CMOON_PUNCH_FINISHER_PUCCI)
+                    .shout(InitSounds.CMOON_PUNCH_FINISHER)
                     .standSound(InitSounds.CMOON_PUNCH_FINISHER)));
 
     public static final RegistryObject<StandEntityHeavyAttack> CMOON_HEAVY_PUNCH = ACTIONS.register("cm_heavy_punch",
@@ -54,7 +53,7 @@ public class InitStands {
                     .setFinisherVariation(CMOON_GRAVITY_PUNCH)
                     .punchSound(InitSounds.CMOON_HEAVY_PUNCH_SOUND)
                     .standSound (InitSounds.CMOON_PUNCH_HEAVY)
-                    .shout (InitSounds.CMOON_PUNCH_HEAVY_PUCCI)
+                    .shout (InitSounds.CMOON_PUNCH_HEAVY)
                     .partsRequired(StandPart.ARMS)));
 
     public static final RegistryObject<StandEntityHeavyAttack> CMOON_INVERSION_PUNCH = ACTIONS.register("cm_inversion_punch",
@@ -62,14 +61,16 @@ public class InitStands {
                     .partsRequired(StandPart.ARMS)
                     .punchSound(InitSounds.CMOON_HEAVY_PUNCH_SOUND)
                     .shout(InitSounds.CMOON_INVERSION_PUNCH)
+                    .staminaCostTick(50F)
                     .standSound(InitSounds.CMOON_PUNCH_FINISHER)));
 
     public static final RegistryObject<StandEntityAction> CMOON_GRAVITATIONAL_BARRIER = ACTIONS.register("cm_gravitational_barrier",
             () -> new CMoonGravitationalBarrier(new StandEntityAction.Builder().cooldown(30).standUserWalkSpeed(0.25f)
                     .resolveLevelToUnlock(3)
                     .partsRequired(StandPart.MAIN_BODY)
+                    .staminaCostTick(300F)
                     .holdToFire(20, false)
-                    .shout(InitSounds.CMOON_SUMMON_PUCCI_VOICELINE)
+                    .shout(InitSounds.CMOON_SUMMON_VOICELINE)
             ));
     
     public static final RegistryObject<StandEntityAction> CMOON_BLOCK = ACTIONS.register("cm_block",
@@ -78,21 +79,22 @@ public class InitStands {
     public static final RegistryObject<StandEntityAction> CMOON_ATTACK_BARRAGE = ACTIONS.register("cm_attack_barrage",
             () -> new CMoonAttackBarrage(new StandEntityMeleeBarrage.Builder()
                     .standUserWalkSpeed(1F)
-                    .staminaCostTick(2F)
                     .barrageHitSound(InitSounds.CMOON_PUNCH_SOUND)
                     .standSound(InitSounds.CMOON_PUNCH_BARRAGE)));
     
     public static final RegistryObject<StandEntityAction> CMOON_MOON = ACTIONS.register("cm_moon",
-            () -> new CMoonMoon(new StandEntityAction.Builder().cooldown(50)
+            () -> new CMoonMoon(new StandEntityAction.Builder().cooldown(250)
                     .holdToFire(20, false)
+                    .staminaCostTick(100F)
                     .partsRequired(StandPart.MAIN_BODY)
                     .shout(InitSounds.CMOON_MOON)
             ));
 
     public static final RegistryObject<StandEntityHeavyAttack> CMOON_GO_TO_MOON = ACTIONS.register("cm_go_to_moon",
-            () -> new CMoonGoToMoon(new StandEntityHeavyAttack.Builder().cooldown(50)
+            () -> new CMoonGoToMoon(new StandEntityHeavyAttack.Builder().cooldown(250)
                     .partsRequired(StandPart.MAIN_BODY)
                     .shout(InitSounds.CMOON_MOON)
+                    .staminaCostTick(100F)
                     .shiftVariationOf(CMOON_MOON)
             ));
 
@@ -101,6 +103,7 @@ public class InitStands {
                     .shout(InitSounds.CMOON_MOON)
                     .resolveLevelToUnlock(3)
                     .holdToFire(20, false)
+                    .staminaCostTick(200F)
                     .partsRequired(StandPart.MAIN_BODY)
             ));
 
@@ -109,15 +112,17 @@ public class InitStands {
                     .resolveLevelToUnlock(3)
                     .partsRequired(StandPart.MAIN_BODY)
                     .holdToFire(40, false)
+                    .staminaCostTick(400F)
                     .shout(InitSounds.CMOON_AWAKENING)
             ));
 
     public static final RegistryObject<StandEntityAction> CMOON_ATTACK = ACTIONS.register("cm_attack",
             () -> new CMoonAttack(new StandEntityAction.Builder().standUserWalkSpeed(0.25f)
-                    .holdToFire(40, false)
+                    .holdToFire(20, false)
                     .resolveLevelToUnlock(3)
-                    .cooldown(200)
+                    .cooldown(100)
                     .standSound(InitSounds.CMOON_ATTACK)));
+
     public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<CMoonEntity>> STAND_CMOON =
             new EntityStandRegistryObject<>("cmoon",
                     STANDS, 
@@ -138,13 +143,13 @@ public class InitStands {
                             CMOON_ATTACK.get()
                     )
                     .defaultStats(StandStats.class, new StandStats.Builder()
-                            .power(12)
+                            .power(14)
                             .speed(13)
                             .range(250, 300)
                             .durability(8)
                             .precision(6)
                             .build())
-                    .addSummonShout(InitSounds.CMOON_SUMMON_PUCCI_VOICELINE)
+                    .addSummonShout(InitSounds.CMOON_SUMMON_VOICELINE)
                     .addOst(InitSounds.CMOON_OST)
                     .build(),
                     

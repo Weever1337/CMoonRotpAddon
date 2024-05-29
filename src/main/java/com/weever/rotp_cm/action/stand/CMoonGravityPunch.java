@@ -37,6 +37,7 @@ public class CMoonGravityPunch extends StandEntityHeavyAttack {
         if (target instanceof LivingEntity) {
             LivingEntity livingTarget = (LivingEntity) target;
             ((LivingEntity) target).addEffect(new EffectInstance(Effects.LEVITATION, 20, 12, true, true, false));
+            ((LivingEntity) target).addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 2, true, true, false));
         }
         LivingEntity user = stand.getUser();
         if (user.hasEffect(InitEffects.CM_AWAKENING.get())) {
