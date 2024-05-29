@@ -19,4 +19,7 @@ public class InitEffects {
     public static final RegistryObject<Effect> CM_AWAKENING = EFFECTS.register("cm_awakening",
             () -> new CMoonAwakening(0xff0000)
     );
+    public static final RegistryObject<Effect> CM_PARALYSIS = EFFECTS.register("cm_paralysis",
+            () -> new CMoonAwakening(0x240004)
+    );
 }

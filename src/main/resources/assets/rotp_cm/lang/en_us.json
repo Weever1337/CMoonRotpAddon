@@ -9,7 +9,7 @@
   "action.rotp_cm.cm_barrage": "Barrage",
   "action.rotp_cm.cm_block": "Block",
   "action.rotp_cm.cm_moon": "Hello, Moon!",
-  "action.rotp_cm.cm_go_to_moon": "Go to Moon!",
+  "action.rotp_cm.cm_go_to_moon": "Send to Moon!",
   "action.rotp_cm.cm_attack": "Attack him!",
   "action.rotp_cm.cm_gravitational_changes": "Gravitational Changes",
   "action.rotp_cm.cm_awakening": "Awakening",
@@ -19,5 +19,7 @@
   "jojo.message.action_condition.cant_unsummon_stand": "Can't unsummon the stand now",
   "jojo.message.action_condition.cant_choose_abilities": "Can't select two abilities at the same time",
   "effect.rotp_cm.cm_inversion": "Inversion",
-  "effect.rotp_cm.cm_awakening": "Awakening"
+  "effect.rotp_cm.cm_awakening": "Awakening",
+  "effect.rotp_cm.cm_paralysis": "Paralysis",
+  "effect.rotp_cm.cm_gravitation": "Gravitation"
 }

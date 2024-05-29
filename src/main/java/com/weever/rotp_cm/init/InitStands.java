@@ -118,7 +118,6 @@ public class InitStands {
                     .resolveLevelToUnlock(3)
                     .cooldown(200)
                     .standSound(InitSounds.CMOON_ATTACK)));
-
     public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<CMoonEntity>> STAND_CMOON =
             new EntityStandRegistryObject<>("cmoon",
                     STANDS, 
@@ -139,7 +138,7 @@ public class InitStands {
                             CMOON_ATTACK.get()
                     )
                     .defaultStats(StandStats.class, new StandStats.Builder()
-                            .power(0)
+                            .power(12)
                             .speed(13)
                             .range(250, 300)
                             .durability(8)
@@ -150,7 +149,7 @@ public class InitStands {
                     .build(),
                     
                     InitEntities.ENTITIES,
-                    () -> new StandEntityType<CMoonEntity>(CMoonEntity::new, 0.7F, 2.1F)
+                    () -> new StandEntityType<CMoonEntity>(CMoonEntity::new, 0.7F, 2.0F)
                     .summonSound(InitSounds.CMOON_SUMMON_SOUND)
                     .unsummonSound(InitSounds.CMOON_UNSUMMON_SOUND))
             .withDefaultStandAttributes();

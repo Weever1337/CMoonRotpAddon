@@ -1,9 +1,14 @@
 package com.weever.rotp_cm.effects;
 
 import com.github.standobyte.jojo.potion.UncurableEffect;
+import com.weever.rotp_cm.RotpCMoonAddon;
+import com.weever.rotp_cm.init.InitEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 public class CMoonInversion extends UncurableEffect {
     public CMoonInversion(int color) {
@@ -13,9 +18,21 @@ public class CMoonInversion extends UncurableEffect {
     public boolean isDurationEffectTick(int duration, int amplifier) { return true; }
 
     @Override
-    public void applyEffectTick(LivingEntity Entity, int amplifier) {
-        if (!Entity.level.isClientSide()) {
-            Entity.hurt(DamageSource.MAGIC, amplifier);
+    public void applyEffectTick(LivingEntity entity, int amplifier) {
+        if (!entity.level.isClientSide()) {
+            if (entity.tickCount % 20 == 0 && entity.hasEffect(InitEffects.CM_INVERSION.get()))
+                entity.hurt(DamageSource.MAGIC, amplifier);
+        }
+    }
+
+    @Mod.EventBusSubscriber(modid = RotpCMoonAddon.MOD_ID)
+    public static class Events {
+        @SubscribeEvent
+        public static void onLivingHeal(LivingHealEvent event) {
+            LivingEntity entity = (LivingEntity) event.getEntity();
+
+            if (entity.hasEffect(InitEffects.CM_INVERSION.get()))
+                event.setCanceled(true);
         }
     }
 }

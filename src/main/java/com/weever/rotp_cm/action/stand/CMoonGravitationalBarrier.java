@@ -13,6 +13,7 @@ public class CMoonGravitationalBarrier extends StandEntityAction {
     public CMoonGravitationalBarrier(StandEntityAction.Builder builder){
         super(builder);
     }
+
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
         CMoonEntity CMoon = (CMoonEntity) stand;

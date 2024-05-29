@@ -124,9 +124,10 @@ public class CMoonEntity extends StandEntity {
             player.displayClientMessage(new TranslationTextComponent("jojo.message.action_condition.cant_choose_abilities"), true);
             IStandPower userPower = this.getUserPower();
             userPower.toggleSummon();
-        }
-        if (this.isAtt()) {
-            if (this.getCurrentTaskAction() == ModStandsInit.UNSUMMON_STAND_ENTITY.get() && user instanceof PlayerEntity){
+        } else if (this.isAtt()) {
+            if (this.getCurrentTaskAction() == ModStandsInit.UNSUMMON_STAND_ENTITY.get() && user instanceof PlayerEntity) {
+                this.setAttOrNot(false);
+            } else if (this.getCurrentTaskAction() == InitStands.CMOON_BLOCK.get() && user instanceof PlayerEntity) {
                 this.setAttOrNot(false);
             }
             LivingEntity livingTarget = null;
@@ -189,25 +190,28 @@ public class CMoonEntity extends StandEntity {
                     player.displayClientMessage(new TranslationTextComponent("jojo.message.action_condition.cant_control_stand"), true);
                 }
             }
-        }
-        if (this.isBarr()) {
+        } else if (this.isBarr()) {
             PlayerEntity player = (PlayerEntity) this.getUser ();
             IStandPower power = this.getUserPower();
             if (this.getCurrentTaskAction() == ModStandsInit.UNSUMMON_STAND_ENTITY.get() && user instanceof PlayerEntity){
                 this.setBarrOrNot(false);
                 return;
             }
-            for (LivingEntity entity : MCUtil.entitiesAround(
-                    LivingEntity.class, player, 10, false,
-                    entity -> (!(entity instanceof StandEntity) || !player.is(Objects.requireNonNull(((StandEntity) entity).getUser()))))
-            ) {
-                if (power.getStamina() < 5) {
+            for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(10), entity -> (entity instanceof LivingEntity && this.checkTargets(entity)))){
+                LOGGER .info(entity.toString());
+                if (entity instanceof LivingEntity) {
+                    LivingEntity livingEntity = (LivingEntity) entity;
+                    if (!livingEntity.hasEffect(Effects.LEVITATION)) {
+                        livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2));
+                    }
+                } else {
+                    entity.hasImpulse = false;
+                }
+                power.consumeStamina(100);
+                if (power.getStamina() < 10) {
                     level.playSound(null, this.blockPosition(), InitSounds.CMOON_UNSUMMON_SOUND.get(), SoundCategory.PLAYERS,1,1);
                     power.toggleSummon();
                     break;
-                } else if (!entity.hasEffect(Effects.LEVITATION)) {
-                    entity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2));
-                    power.consumeStamina(200);
                 }
             }
         }

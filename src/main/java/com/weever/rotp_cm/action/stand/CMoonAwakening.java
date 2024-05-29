@@ -25,11 +25,12 @@ public class CMoonAwakening extends StandEntityAction {
 
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
+        IStandPower UserPower = (IStandPower) power;
+        LivingEntity user = UserPower.getUser();
+        if (user.hasEffect(InitEffects.CM_AWAKENING.get())) return ActionConditionResult.NEGATIVE;
         CMoonEntity CMoon = (CMoonEntity) stand;
-        LivingEntity user = power.getUser();
         if (CMoon.isAtt()) { return conditionMessage("cant_control_stand"); }
         if (power.getStamina() < 300) return ActionConditionResult.NEGATIVE;
-        if (user.hasEffect(InitEffects.CM_AWAKENING.get())) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }
 

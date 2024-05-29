@@ -1,0 +1,25 @@
+{
+  "entity.rotp_cm.cmoon": "C-Moon",
+  "stand.rotp_cm.cmoon": "C-Moon",
+
+  "action.rotp_cm.cm_punch": "Удар",
+  "action.rotp_cm.cm_heavy_punch": "Важкий удар",
+  "action.rotp_cm.cm_gravity_punch": "Гравітаційний удар",
+  "action.rotp_cm.cm_inversion_punch": "Інверсійний удар",
+  "action.rotp_cm.cm_barrage": "Шквал ударів",
+  "action.rotp_cm.cm_block": "Блокування",
+  "action.rotp_cm.cm_moon": "Привіт, Місяць!",
+  "action.rotp_cm.cm_go_to_moon": "Відправити на Місяць!",
+  "action.rotp_cm.cm_attack": "Атакуй його!",
+  "action.rotp_cm.cm_gravitational_changes": "Гравітаційні зміни",
+  "action.rotp_cm.cm_awakening": "Пробудження",
+  "action.rotp_cm.cm_gravitational_barrier": "Гравітаційний бар'єр",
+
+  "jojo.message.action_condition.cant_control_stand": "Стенд зараз некерований",
+  "jojo.message.action_condition.cant_unsummon_stand": "Не можна відкликати стенд",
+  "jojo.message.action_condition.cant_choose_abilities": "Неможливо вибрати дві здібності одночасно",
+  "effect.rotp_cm.cm_inversion": "Інверсія",
+  "effect.rotp_cm.cm_awakening": "Пробудження",
+  "effect.rotp_cm.cm_paralysis": "Параліч",
+  "effect.rotp_cm.cm_gravitation": "Гравітація"
+}
