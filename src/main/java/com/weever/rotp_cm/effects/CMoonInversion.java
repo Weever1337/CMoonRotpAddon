@@ -20,7 +20,7 @@ public class CMoonInversion extends UncurableEffect {
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         if (!entity.level.isClientSide()) {
-            if (entity.tickCount % 10 == 0 && entity.hasEffect(InitEffects.CM_INVERSION.get()))
+            if (entity.tickCount % 10 == 0)
                 entity.hurt(DamageSource.MAGIC, Math.min(10, entity.getHealth() * 0.5F));
         }
     }

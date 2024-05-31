@@ -38,26 +38,27 @@ public class CMoonEffectivePunchRun extends StandEntityAction {
 
     @Override
     public void standPerform(World world, StandEntity standEntity, IStandPower userPower, StandEntityTask task){
-        if(!world.isClientSide){
-            Double range = (double) (3*10);
+        if (!world.isClientSide){
+            double range = 30;
             LivingEntity user = userPower.getUser();
-            LivingEntity entity = LivingEntityRange(userPower,range);
+            LivingEntity entity = livingEntityRange(userPower, range);
 
-			if(entity != null){
+			if (entity != null){
 				Random random = new Random();
 		        int number = random.nextInt(3);
 		        switch (number) {
-		        	case (1): // Gravitation (levitation) effect
+		        	case 0: // Gravitation (levitation) effect
 		        		if (!entity.hasEffect(Effects.LEVITATION)) entity.addEffect(new EffectInstance(Effects.LEVITATION, 10, 20, false, false, true));
 		        		break;
-		        	case (2): // Paralysis effect
+		        	case 1: // Paralysis effect
 		        		if (!entity.hasEffect(InitEffects.CM_PARALYSIS.get())) entity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 50, 2, false, false, true));
 		        		break;
-		        	case (3):
+		        	case 2:
 		        		if (!entity.hasEffect(InitEffects.CM_INVERSION.get())) entity.addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), 50, 1, false, false, true));
 		        		break;
 		        	default:
 		        		entity.hurt(DamageSource.MAGIC, 2.5F);
+		        		break;
 		        }
 		        String s_id = String.valueOf(user.getUUID());
 	            entity.removeTag(s_id);
@@ -69,11 +70,11 @@ public class CMoonEffectivePunchRun extends StandEntityAction {
     }
 
 
-    public static LivingEntity LivingEntityRange(IStandPower standuser, Double range){
+    public static LivingEntity livingEntityRange(IStandPower standuser, Double range){
         LivingEntity user = standuser.getUser();
         World world = user.level;
         String s_id = String.valueOf(user.getUUID());
-        LivingEntity entidad = world.getEntitiesOfClass(LivingEntity.class,user.getBoundingBox().inflate(range),
+        LivingEntity entidad = world.getEntitiesOfClass(LivingEntity.class, user.getBoundingBox().inflate(range),
                 EntityPredicates.ENTITY_STILL_ALIVE).stream().filter(entity -> entity.getTags().contains(s_id)).findFirst().orElse(null);
         return entidad;
 
