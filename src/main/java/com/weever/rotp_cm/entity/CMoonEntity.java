@@ -8,7 +8,8 @@ import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.entity.stand.StandEntityType;
-import com.github.standobyte.jojo.init.ModStatusEffects;
+import com.github.standobyte.jojo.init.*;
+import com.github.standobyte.jojo.init.ModParticles;
 import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
@@ -20,6 +21,9 @@ import com.weever.rotp_cm.init.InitStands;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.entity.item.FallingBlockEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -206,19 +210,25 @@ public class CMoonEntity extends StandEntity {
                     Entity.class, player, 5, false,
                     entity -> (!(entity instanceof StandEntity)))
             ) {
-                LOGGER.info(entity.getName().toString());
                 if (entity instanceof LivingEntity) {
                     LivingEntity livingEntity = (LivingEntity) entity;
                     if (!livingEntity.hasEffect(Effects.LEVITATION)) {
                         livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2, false, false, true));
                         livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 1, false, false, true));
-                        power.consumeStamina(200);
+                        power.consumeStamina(100);
                     }
+                } else if (
+                		entity instanceof ItemEntity 
+                		|| entity instanceof ExperienceOrbEntity 
+                		|| entity instanceof FallingBlockEntity
+                ) {
+                	continue;
                 } else {
                     double x = entity.getX() ;
                     double y = entity.getY();
                     double z = entity.getZ();
-                    entity.level.addParticle(ParticleTypes.CRIT, x, y, z, 0, 0, 0);
+                    //entity.level.addParticle(ParticleTypes.CRIT, x, y, z, 0, 0, 0);
+                    entity.level.addParticle(ModParticles.CD_RESTORATION.get(), x, y, z, 0, 0, 0);
                     entity.remove();
                     power.consumeStamina(25);
                 }

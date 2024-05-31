@@ -1,11 +1,11 @@
 package com.weever.rotp_cm.effects;
-
 import com.github.standobyte.jojo.potion.UncurableEffect;
 import com.weever.rotp_cm.RotpCMoonAddon;
 import com.weever.rotp_cm.init.InitEffects;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.potion.EffectType;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovementInput;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.api.distmarker.Dist;

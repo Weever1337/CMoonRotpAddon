@@ -14,7 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class InitSounds {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(
-            ForgeRegistries.SOUND_EVENTS, RotpCMoonAddon.MOD_ID); // TODO sounds.json
+            ForgeRegistries.SOUND_EVENTS, RotpCMoonAddon.MOD_ID);
     
     public static final RegistryObject<SoundEvent> CMOON_SUMMON_VOICELINE = SOUNDS.register("cm_summon",
             () -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_summon")));
@@ -35,8 +35,8 @@ public class InitSounds {
     public static final Supplier<SoundEvent> CMOON_PUNCH_BARRAGE = SOUNDS.register("cm_barrage",
             () -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_barrage")));
 
-    public static final Supplier<SoundEvent> CMOON_PUNCH_FINISHER = SOUNDS.register("cm_finisher",
-            () -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_finisher")));
+    public static final Supplier<SoundEvent> CMOON_EFFECTIVE_PUNCH = SOUNDS.register("cm_effective_punch",
+            () -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_effective_punch")));
 
     public static final Supplier<SoundEvent> CMOON_INVERSION_PUNCH = SOUNDS.register("cm_inversion_punch",
             () -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_inversion_punch")));
@@ -49,6 +49,9 @@ public class InitSounds {
 
     public static final Supplier<SoundEvent> CMOON_AWAKENING = SOUNDS.register("cm_awakening",
             () -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_awakening")));
+    
+	public static final Supplier<SoundEvent> CMOON_SHOT = SOUNDS.register("cm_shot",
+			() -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_shot")));
     
     public static final OstSoundList CMOON_OST = new OstSoundList(
             new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_ost"),

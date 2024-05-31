@@ -6,6 +6,7 @@
   "action.rotp_cm.cm_heavy_punch": "Heavy Punch",
   "action.rotp_cm.cm_gravity_punch": "Gravity Punch",
   "action.rotp_cm.cm_inversion_punch": "Inversion Punch",
+  "action.rotp_cm.cm_effective_punch": "Effective Punch",
   "action.rotp_cm.cm_barrage": "Barrage",
   "action.rotp_cm.cm_block": "Block",
   "action.rotp_cm.cm_moon": "Hello, Moon!",
@@ -21,5 +22,7 @@
   "effect.rotp_cm.cm_inversion": "Inversion",
   "effect.rotp_cm.cm_awakening": "Awakening",
   "effect.rotp_cm.cm_paralysis": "Paralysis",
-  "effect.rotp_cm.cm_gravitation": "Gravitation"
+  "effect.rotp_cm.cm_gravitation": "Gravitation",
+  "item.rotp_cm.holygun": "Holy Gun",
+  "item.rotp_cm.holygun.reload_prompt": "%s+%s to reload (consumes iron nuggets and gunpowder)"
 }

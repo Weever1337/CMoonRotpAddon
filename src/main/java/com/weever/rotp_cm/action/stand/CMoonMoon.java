@@ -30,8 +30,10 @@ public class CMoonMoon extends StandEntityAction {
     public void standPerform(World world, StandEntity standEntity, IStandPower userPower, StandEntityTask task) {
         if (!world.isClientSide()) {
             LivingEntity user = userPower.getUser();
-            if (!user.hasEffect(Effects.LEVITATION)) user.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2, false, false, true)); // AHH MOMENT 💀💀💀
-            if (!user.hasEffect(InitEffects.CM_PARALYSIS.get())) user.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 2, false, false, true));
+            int duration = 100;
+            if (!user.hasEffect(Effects.LEVITATION)) user.addEffect(new EffectInstance(Effects.LEVITATION, duration, 2, false, false, true)); // AHH MOMENT 💀💀💀
+            if (!user.hasEffect(Effects.SLOW_FALLING)) user.addEffect(new EffectInstance(Effects.SLOW_FALLING, duration*2, 12, false, false, true));
+            if (!user.hasEffect(InitEffects.CM_PARALYSIS.get())) user.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), duration, 2, false, false, true));
         }
     }
 }

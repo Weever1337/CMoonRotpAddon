@@ -32,12 +32,13 @@ public class CMoonGravitationalChanges extends StandEntityAction {
     @Override
     public void standPerform(World world, StandEntity standEntity, IStandPower userPower, StandEntityTask task) {
         if (!world.isClientSide()) {
-            LivingEntity user = userPower.getUser();
+        	int duration = 100;
             for (LivingEntity entity : MCUtil.entitiesAround(
                     LivingEntity.class, userPower.getUser(), 10, false,
                     entity -> (!(entity instanceof StandEntity) || !userPower.getUser().is(Objects.requireNonNull(((StandEntity) entity).getUser()))))) {
-                entity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2, false, false, true));
-                entity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 2, false, false, true));
+            	if (!entity.hasEffect(Effects.LEVITATION)) entity.addEffect(new EffectInstance(Effects.LEVITATION, duration, 2, false, false, true)); // AHH MOMENT 💀💀💀
+                //if (!entity.hasEffect(Effects.SLOW_FALLING)) entity.addEffect(new EffectInstance(Effects.SLOW_FALLING, duration*2, 2, false, false, true));
+                if (!entity.hasEffect(InitEffects.CM_PARALYSIS.get())) entity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), duration, 1, false, false, true));
             }
         }
     }

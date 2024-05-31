@@ -8,9 +8,6 @@
   "cm_heavy_punch": {
     "sounds": [ "rotp_cm:stand/cm_heavy_punch", "rotp_cm:stand/cm_heavy_punch2", "rotp_cm:stand/cm_heavy_punch3" ]
   },
-  "cm_finisher": {
-    "sounds": [ "rotp_cm:stand/cm_finisher", "rotp_cm:stand/cm_finisher2" ]
-  },
   "cm_barrage": {
     "sounds": [ "rotp_cm:stand/cm_barrage", "rotp_cm:stand/cm_barrage2" ]
   },
@@ -22,7 +19,10 @@
     "sounds": [ "rotp_cm:cm_attack" ]
   },
   "cm_inversion_punch": {
-    "sounds": [ "rotp_cm:cm_inversion_punch" ]
+    "sounds": [ "rotp_cm:cm_inversion_punch", "rotp_cm:stand/cm_inversion2" ]
+  },
+  "cm_effective_punch": {
+    "sounds": [ "rotp_cm:stand/cm_effective_punch", "rotp_cm:stand/cm_effective_punch2"]
   },
   "cm_awakening":{
     "sounds": [ "rotp_cm:cm_awakening" ]

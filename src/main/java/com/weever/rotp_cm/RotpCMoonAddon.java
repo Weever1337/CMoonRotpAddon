@@ -1,6 +1,8 @@
 package com.weever.rotp_cm;
 
 import com.weever.rotp_cm.init.*;
+import com.weever.rotp_cm.network.AddonPackets;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,5 +30,7 @@ public class RotpCMoonAddon {
         InitStands.ACTIONS.register(modEventBus);
         InitStands.STANDS.register(modEventBus);
         InitEffects.EFFECTS.register(modEventBus);
+        
+        AddonPackets.init();
     }
 }

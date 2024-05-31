@@ -37,8 +37,9 @@ public class CMoonGoToMoon extends StandEntityHeavyAttack {
             LivingEntity user = stand.getUser();
             int duration = 100;
             if (user.hasEffect(InitEffects.CM_AWAKENING.get())) { duration = 200; }
-            if (!livingTarget.hasEffect(Effects.LEVITATION)) ((LivingEntity) target).addEffect(new EffectInstance(Effects.LEVITATION, 20, 12, false, false, true));
-            if (!livingTarget.hasEffect(InitEffects.CM_PARALYSIS.get())) ((LivingEntity) target).addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 2, false, false, true));
+            if (!livingTarget.hasEffect(Effects.LEVITATION)) livingTarget.addEffect(new EffectInstance(Effects.LEVITATION, duration, 2, false, false, true));
+            //if (!livingTarget.hasEffect(Effects.SLOW_FALLING)) livingTarget.addEffect(new EffectInstance(Effects.SLOW_FALLING, duration*2, 12, false, false, true));
+            if (!livingTarget.hasEffect(InitEffects.CM_PARALYSIS.get())) livingTarget.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), duration, 1, false, false, true));
         }
         return super.punchEntity(stand, target, dmgSource);
     }
