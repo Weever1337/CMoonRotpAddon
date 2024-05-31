@@ -1,8 +1,5 @@
 package com.weever.rotp_cm.action.stand;
 
-import java.util.Random;
-import com.github.standobyte.jojo.action.stand.StandEntityAction;
-
 import com.github.standobyte.jojo.action.Action;
 import com.github.standobyte.jojo.action.ActionConditionResult;
 import com.github.standobyte.jojo.action.ActionTarget;
@@ -10,14 +7,8 @@ import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.action.stand.StandEntityHeavyAttack;
 import com.github.standobyte.jojo.action.stand.punch.StandEntityPunch;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
-import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mc.damage.StandEntityDamageSource;
-import com.github.standobyte.jojo.action.ActionConditionResult;
-import com.github.standobyte.jojo.util.mod.JojoModUtil;
-import com.weever.rotp_cm.entity.CMoonEntity;
-import com.weever.rotp_cm.init.InitEffects;
-import com.weever.rotp_cm.init.InitSounds;
 import com.weever.rotp_cm.init.InitStands;
 import com.weever.rotp_cm.network.AddonPackets;
 import com.weever.rotp_cm.network.server.AddTagPacket;
@@ -25,9 +16,6 @@ import com.weever.rotp_cm.network.server.AddTagPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class CMoonEffectivePunch extends StandEntityHeavyAttack {
@@ -47,8 +35,6 @@ public class CMoonEffectivePunch extends StandEntityHeavyAttack {
     
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        CMoonEntity CMoon = (CMoonEntity) stand;
-        if (CMoon.isAtt()) return conditionMessage("cant_control_stand");
         if (power.getStamina() < 50) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }

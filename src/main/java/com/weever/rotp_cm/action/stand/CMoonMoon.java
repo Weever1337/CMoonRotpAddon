@@ -6,8 +6,8 @@ import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-import com.weever.rotp_cm.entity.CMoonEntity;
 import com.weever.rotp_cm.init.InitEffects;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -20,8 +20,6 @@ public class CMoonMoon extends StandEntityAction {
 
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        CMoonEntity CMoon = (CMoonEntity) stand;
-        if (CMoon.isAtt()) return conditionMessage("cant_control_stand");
         if (power.getStamina() < 100) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }

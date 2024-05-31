@@ -6,8 +6,8 @@ import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-import com.weever.rotp_cm.RotpCMoonAddon;
 import com.weever.rotp_cm.entity.CMoonEntity;
+
 import net.minecraft.world.World;
 public class CMoonGravitationalBarrier extends StandEntityAction {
     public CMoonGravitationalBarrier(StandEntityAction.Builder builder){
@@ -16,10 +16,6 @@ public class CMoonGravitationalBarrier extends StandEntityAction {
 
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        CMoonEntity CMoon = (CMoonEntity) stand;
-        if (CMoon.isAtt()) {
-            return conditionMessage("cant_control_stand");
-        }
         if (power.getStamina() < 300) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }

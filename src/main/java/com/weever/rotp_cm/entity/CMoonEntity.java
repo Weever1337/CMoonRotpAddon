@@ -1,18 +1,14 @@
 package com.weever.rotp_cm.entity;
 
-import java.util.Comparator;
-import java.util.List;
-
 import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.entity.stand.StandEntityType;
-import com.github.standobyte.jojo.init.*;
 import com.github.standobyte.jojo.init.ModParticles;
+import com.github.standobyte.jojo.init.ModStatusEffects;
 import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.mc.MCUtil;
 import com.weever.rotp_cm.init.InitEffects;
 import com.weever.rotp_cm.init.InitSounds;
@@ -28,13 +24,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 public class CMoonEntity extends StandEntity {
@@ -43,21 +37,10 @@ public class CMoonEntity extends StandEntity {
         super(type, world);
     } // Tysm Purple Haze Addon! :D
 
-    boolean attack;
-    boolean attackfromability;
+    private LivingEntity autoAttackTarget = null;
     boolean barrier;
-    int range = 10;
 
-    public void setAttOrNot(boolean set) {
-        this.attack = set;
-    }
-    public void setBarrOrNot(boolean set) { this.barrier = set; }
-    public void setAttOrNotWithAbility (boolean set) {
-        this.attackfromability = set;
-        this.attack = set;
-    }
-
-    public void retractWhenOver(){
+    public void retractWhenOver() {
         if (!this.isFollowingUser()) {
             //this.setManualControl(false, false);
             entityData.set(ATTACK_HAS_TARGET, false);
@@ -65,14 +48,29 @@ public class CMoonEntity extends StandEntity {
         }
     }
 
-    public boolean isAtt() {
-        return attack;
-    }
-    public boolean isBarr() { return barrier; }
-    public boolean isAttCauseOfAbility() {
-        return attackfromability && attack;
-    }
     float attackBarrageTime = 0;
+    
+    public void setAutoAttackTarget(LivingEntity entity) {
+        this.autoAttackTarget = entity;
+        if (entity == null) {
+            if (entityData.get(ATTACK_HAS_TARGET)) {
+                this.retractStand(false);
+            }
+            entityData.set(ATTACK_HAS_TARGET, false);
+        }
+    }
+
+    @Override
+    protected boolean setTask(StandEntityTask task) {
+        if (!level.isClientSide() && (task == null || task.getAction() == InitStands.CMOON_AUTO_ATTACK.get())) {
+            setAutoAttackTarget(null);
+        }
+        return super.setTask(task);
+    }
+    
+    public void setBarrOrNot(boolean set) { this.barrier = set; }
+    
+    public boolean isBarr() { return barrier; }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -105,97 +103,49 @@ public class CMoonEntity extends StandEntity {
         this.lookAt(EntityAnchorArgument.Type.EYES, target.getEyePosition(1));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void tick() {
         super.tick();
         LivingEntity user = this.getUser();
-        if (user.isAlive() && this.isAttCauseOfAbility()){
-            this.setAttOrNotWithAbility(true);
-        }
-        else if ((user.isAlive() && this.getUserPower().getResolveLevel() == 0)
-                || (user.isAlive() && user.getHealth() <= 0.5 * user.getMaxHealth () && this.getUserPower().getResolveLevel() == 1)
-                || (user.isAlive() && user.getHealth() <= 0.25 * user.getMaxHealth () && this.getUserPower().getResolveLevel() == 2)
-                || (user.isAlive() && user.getHealth() <= 0.1 * user.getMaxHealth () && this.getUserPower().getResolveLevel() >= 3)) {
-            this.setAttOrNot(true);
-        }
-        else {
-            this.setAttOrNotWithAbility(false);
+        
+        if (autoAttackTarget != null && autoAttackTarget.removed) {
+            autoAttackTarget = null;
+            this.stopTask();
+            this.retractWhenOver();
         }
 
-        if (this.isAtt() && this.isBarr()) {
-            PlayerEntity player = (PlayerEntity) this.getUser ();
-            this.setBarrOrNot(false);
-            this.setAttOrNot(false);
-            player.displayClientMessage(new TranslationTextComponent("jojo.message.action_condition.cant_choose_abilities"), true);
-            IStandPower userPower = this.getUserPower();
-            userPower.toggleSummon();
-        } else if (this.isAtt()) {
-            if (this.getCurrentTaskAction() == ModStandsInit.UNSUMMON_STAND_ENTITY.get() && user instanceof PlayerEntity){
-                PlayerEntity player = (PlayerEntity) this.getUser ();
-                this.stopTask();
-                player.displayClientMessage(new TranslationTextComponent("jojo.message.action_condition.cant_control_stand"), true);
-            }
-            LivingEntity livingTarget = null;
+        if (autoAttackTarget != null) {
+            if (autoAttackTarget.getHealth() > 0) {
+                ActionTarget actionTarget = new ActionTarget(autoAttackTarget);
+                StandEntityAction punch = InitStands.CMOON_PUNCH.get();
+                StandEntityAction barrage = InitStands.CMOON_ATTACK_BARRAGE.get();
+                StandEntityAction inversionPunch = InitStands.CMOON_INVERSION_PUNCH.get();
+                this.moveToTarget(autoAttackTarget);
 
-            Entity curTarget = getCurrentTask().map(StandEntityTask::getTarget).orElse(ActionTarget.EMPTY).getEntity();
-            if (curTarget instanceof LivingEntity && curTarget.isAlive() && curTarget.distanceToSqr(user) < range * range) {
-                livingTarget = (LivingEntity) curTarget;
-            } else {
-                List<Entity> entitiesAround = this.level.getEntities(this, user.getBoundingBox().inflate(range),
-                        entity -> (entity instanceof LivingEntity && this.checkTargets(entity)));
-                if (!entitiesAround.isEmpty()) {
-                    Entity closestEntity = entitiesAround.stream()
-                            .min(Comparator.comparingDouble(
-                                    target -> target.distanceToSqr(this)))
-                            .get();
-                    livingTarget = (LivingEntity) closestEntity;
-                }
-            }
-
-            if (livingTarget != null) {
-                if (livingTarget.getHealth() > 0) {
-                    ActionTarget actionTarget = new ActionTarget(livingTarget);
-                    StandEntityAction punch = InitStands.CMOON_PUNCH.get();
-                    StandEntityAction barrage = InitStands.CMOON_ATTACK_BARRAGE.get();
-                    StandEntityAction inversionPunch = InitStands.CMOON_INVERSION_PUNCH.get();
-                    this.moveToTarget(livingTarget);
-
-                    if (this.getStaminaCondition() > 0.25) {
-                        if (this.getFinisherMeter() > 0.3 && !this.isBeingRetracted() && !livingTarget.isDeadOrDying ()) {
-                            if (this.getCurrentTaskAction() != barrage) {
-                                this.setTask(barrage, 60, StandEntityAction.Phase.PERFORM, actionTarget);
-                            }
-                            if (this.getFinisherMeter() > 0.7 && (livingTarget.getHealth() / livingTarget.getMaxHealth())<  0.15){
-                                this.stopTask();
-                                this.setTask(inversionPunch, inversionPunch.getStandActionTicks(this.getUserPower(), this), StandEntityAction.Phase.WINDUP, actionTarget);
-                                attackBarrageTime = 0;
-                            }
+                if (this.getStaminaCondition() > 0.25) {
+                    if (this.getFinisherMeter() > 0.3 && !this.isBeingRetracted() && !autoAttackTarget.isDeadOrDying()) {
+                        if (this.getCurrentTaskAction() != barrage) {
+                            this.setTask(barrage, 60, StandEntityAction.Phase.PERFORM, actionTarget);
                         }
-                        else {
-                            this.setTask(punch, 10, StandEntityAction.Phase.PERFORM, actionTarget);
+                        if (this.getFinisherMeter() > 0.7 && (autoAttackTarget.getHealth() / autoAttackTarget.getMaxHealth()) < 0.15) {
+                            this.stopTask();
+                            this.setTask(inversionPunch, inversionPunch.getStandActionTicks(this.getUserPower(), this), StandEntityAction.Phase.WINDUP, actionTarget);
+                            attackBarrageTime = 0;
                         }
                     }
+                    else {
+                        this.setTask(punch, 10, StandEntityAction.Phase.PERFORM, actionTarget);
+                    }
                 }
-                else if (livingTarget.isDeadOrDying () && livingTarget.getMaxHealth () >= 20){
-                    this.getUser ().addEffect (new EffectInstance (ModStatusEffects.STAMINA_REGEN.get (), 100, 1));
-                }
+                
+                setTaskTarget(actionTarget);
             }
-            else {
-                if (this.getCurrentTaskAction () != InitStands.CMOON_ATTACK_BARRAGE.get()){
-                    this.stopTask ();
-                    this.retractWhenOver();
-                }
-            }
-
-            if (isManuallyControlled()) {
-                if (user instanceof PlayerEntity) {
-                    PlayerEntity player = (PlayerEntity) getUser();
-                    //StandUtil.setManualControl(player, false, false);
-                    setAttOrNot(false);
-                }
+            else if (autoAttackTarget.isDeadOrDying() && autoAttackTarget.getMaxHealth() >= 20) {
+                this.getUser().addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 1));
             }
         } else if (this.isBarr()) {
-            PlayerEntity player = (PlayerEntity) this.getUser ();
+            PlayerEntity player = (PlayerEntity) this.getUser();
             IStandPower power = this.getUserPower();
             if (this.getCurrentTaskAction() == ModStandsInit.UNSUMMON_STAND_ENTITY.get() && user instanceof PlayerEntity){
                 this.setBarrOrNot(false);
@@ -250,7 +200,7 @@ public class CMoonEntity extends StandEntity {
                     aim = precisionRayTrace(user, reachDistance);
                 }
             }
-            if (aim == null || this.isAtt()) {
+            if (aim == null || autoAttackTarget != null) {
                 aim = precisionRayTrace(this, reachDistance);
             }
 
@@ -277,7 +227,7 @@ public class CMoonEntity extends StandEntity {
         }
     }
 
-    private boolean checkTargets(Entity entity){
+    public boolean checkTargets(Entity entity){
         return entity != this.getUser() && !entity.isAlliedTo(this.getUser());
     }
 }
