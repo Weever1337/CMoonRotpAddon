@@ -4,9 +4,10 @@
 
   "action.rotp_cm.cm_punch": "Удар",
   "action.rotp_cm.cm_heavy_punch": "Тяжелый удар",
-  "action.rotp_cm.cm_gravity_punch": "Гравитационный удар",
   "action.rotp_cm.cm_inversion_punch": "Инверсионный удар",
   "action.rotp_cm.cm_effective_punch": "Эффективный удар",
+  "action.rotp_cm.cm_effective_punch_quit": "Выход с эффективного удара",
+  "action.rotp_cm.cm_effective_punch_run": "Он эффективен!",
   "action.rotp_cm.cm_barrage": "Шквал ударов",
   "action.rotp_cm.cm_block": "Блокирование",
   "action.rotp_cm.cm_moon": "Привет, Луна!",

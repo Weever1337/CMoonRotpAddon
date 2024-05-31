@@ -4,9 +4,10 @@
 
   "action.rotp_cm.cm_punch": "Punch",
   "action.rotp_cm.cm_heavy_punch": "Heavy Punch",
-  "action.rotp_cm.cm_gravity_punch": "Gravity Punch",
   "action.rotp_cm.cm_inversion_punch": "Inversion Punch",
   "action.rotp_cm.cm_effective_punch": "Effective Punch",
+  "action.rotp_cm.cm_effective_punch_quit": "Quit from Effective Punch",
+  "action.rotp_cm.cm_effective_punch_run": "Effective him!",
   "action.rotp_cm.cm_barrage": "Barrage",
   "action.rotp_cm.cm_block": "Block",
   "action.rotp_cm.cm_moon": "Hello, Moon!",

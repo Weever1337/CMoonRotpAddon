@@ -61,15 +61,16 @@ public class InitStands {
                     .standSound(InitSounds.CMOON_EFFECTIVE_PUNCH)
                     .staminaCostTick(50F)));
     
+    public static final RegistryObject<StandEntityAction> CMOON_EFFECTIVE_PUNCH_RUN = ACTIONS.register("cm_effective_punch_run",
+            () -> new CMoonEffectivePunchRun(new StandEntityAction.Builder().standWindupDuration(5)
+                    .staminaCost(250F)));
+    
     public static final RegistryObject<StandEntityAction> CMOON_EFFECTIVE_PUNCH_QUIT = ACTIONS.register("cm_effective_punch_quit",
             () -> new CMoonEffectivePunchQuit(new StandEntityAction.Builder()
             		.standWindupDuration(5)
                     .staminaCost(250F)
-                    .shiftVariationOf(CMOON_EFFECTIVE_PUNCH)));
-    
-    public static final RegistryObject<StandEntityAction> CMOON_EFFECTIVE_PUNCH_RUN = ACTIONS.register("cm_effective_punch_run",
-            () -> new CMoonEffectivePunchRun(new StandEntityAction.Builder().standWindupDuration(5)
-                    .staminaCost(250F)));
+                    .shiftVariationOf(CMOON_EFFECTIVE_PUNCH)
+                    .shiftVariationOf(CMOON_EFFECTIVE_PUNCH_RUN)));
     
     public static final RegistryObject<StandEntityAction> CMOON_BLOCK = ACTIONS.register("cm_block",
             () -> new CMoonBlock ());
