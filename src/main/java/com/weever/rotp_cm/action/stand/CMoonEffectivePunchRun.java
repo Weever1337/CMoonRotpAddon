@@ -8,7 +8,6 @@ import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-import com.weever.rotp_cm.entity.CMoonEntity;
 import com.weever.rotp_cm.init.InitEffects;
 import com.weever.rotp_cm.network.AddonPackets;
 import com.weever.rotp_cm.network.server.RemoveTagPacket;
@@ -19,7 +18,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityPredicates;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 
@@ -30,8 +28,6 @@ public class CMoonEffectivePunchRun extends StandEntityAction {
     
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        CMoonEntity CMoon = (CMoonEntity) stand;
-        if (CMoon.isAtt()) return conditionMessage("cant_control_stand");
         if (power.getStamina() < 50) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }

@@ -115,7 +115,7 @@ public class InitStands {
                     .shout(InitSounds.CMOON_AWAKENING)
             ));
 
-    public static final RegistryObject<StandEntityAction> CMOON_ATTACK = ACTIONS.register("cm_attack",
+    public static final RegistryObject<StandEntityAction> CMOON_AUTO_ATTACK = ACTIONS.register("cm_attack",
             () -> new CMoonAttack(new StandEntityAction.Builder().standUserWalkSpeed(0.25f)
                     .holdToFire(20, false)
                     .resolveLevelToUnlock(3)
@@ -148,7 +148,7 @@ public class InitStands {
                             CMOON_MOON.get(),
                             CMOON_GRAVITATION.get(),
                             CMOON_AWAKENING.get(),
-                            CMOON_ATTACK.get()
+                            CMOON_AUTO_ATTACK.get()
                     )
                     .defaultStats(StandStats.class, new StandStats.Builder()
                             .power(8)

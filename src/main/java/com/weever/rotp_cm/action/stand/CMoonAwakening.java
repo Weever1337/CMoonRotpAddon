@@ -1,22 +1,21 @@
 package com.weever.rotp_cm.action.stand;
 
+import java.util.Random;
+
 import com.github.standobyte.jojo.action.ActionConditionResult;
 import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.init.ModStatusEffects;
-import com.github.standobyte.jojo.init.power.stand.ModStandEffects;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-import com.weever.rotp_cm.entity.CMoonEntity;
 import com.weever.rotp_cm.init.InitEffects;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class CMoonAwakening extends StandEntityAction {
     public CMoonAwakening(StandEntityAction.Builder builder){
@@ -25,11 +24,8 @@ public class CMoonAwakening extends StandEntityAction {
 
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        IStandPower UserPower = (IStandPower) power;
-        LivingEntity user = UserPower.getUser();
+        LivingEntity user = power.getUser();
         if (user.hasEffect(InitEffects.CM_AWAKENING.get())) return ActionConditionResult.NEGATIVE;
-        CMoonEntity CMoon = (CMoonEntity) stand;
-        if (CMoon.isAtt()) { return conditionMessage("cant_control_stand"); }
         if (power.getStamina() < 400) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }
