@@ -9,6 +9,7 @@ import com.github.standobyte.jojo.action.stand.punch.StandEntityPunch;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mc.damage.StandEntityDamageSource;
+import com.weever.rotp_cm.entity.CMoonEntity;
 import com.weever.rotp_cm.init.InitStands;
 import com.weever.rotp_cm.network.AddonPackets;
 import com.weever.rotp_cm.network.server.AddTagPacket;
@@ -35,7 +36,9 @@ public class CMoonEffectivePunch extends StandEntityHeavyAttack {
     
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        if (power.getStamina() < 50) return ActionConditionResult.NEGATIVE;
+    	CMoonEntity CMoon = (CMoonEntity) stand;
+    	if (power.getStamina() < 50) return ActionConditionResult.NEGATIVE;
+        else if (CMoon.isAtt()) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
     }
     

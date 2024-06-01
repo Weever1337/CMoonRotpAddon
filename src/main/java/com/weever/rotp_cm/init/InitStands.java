@@ -63,12 +63,12 @@ public class InitStands {
     
     public static final RegistryObject<StandEntityAction> CMOON_EFFECTIVE_PUNCH_RUN = ACTIONS.register("cm_effective_punch_run",
             () -> new CMoonEffectivePunchRun(new StandEntityAction.Builder().standWindupDuration(5)
-                    .staminaCost(250F)));
+                    .staminaCost(50F)));
     
     public static final RegistryObject<StandEntityAction> CMOON_EFFECTIVE_PUNCH_QUIT = ACTIONS.register("cm_effective_punch_quit",
             () -> new CMoonEffectivePunchQuit(new StandEntityAction.Builder()
             		.standWindupDuration(5)
-                    .staminaCost(250F)
+                    .staminaCost(50F)
                     .shiftVariationOf(CMOON_EFFECTIVE_PUNCH)
                     .shiftVariationOf(CMOON_EFFECTIVE_PUNCH_RUN)));
     
@@ -151,7 +151,7 @@ public class InitStands {
                             CMOON_AUTO_ATTACK.get()
                     )
                     .defaultStats(StandStats.class, new StandStats.Builder()
-                            .power(8)
+                            .power(7)
                             .speed(13)
                             .range(250, 300)
                             .durability(8)

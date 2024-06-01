@@ -44,7 +44,7 @@ public class CMoonEffectivePunchRun extends StandEntityAction {
 		        int number = random.nextInt(3);
 		        switch (number) {
 		        	case 0: // Gravitation (levitation) effect
-		        		if (!entity.hasEffect(Effects.LEVITATION)) entity.addEffect(new EffectInstance(Effects.LEVITATION, 10, 20, false, false, true));
+		        		if (!entity.hasEffect(Effects.LEVITATION)) entity.addEffect(new EffectInstance(Effects.LEVITATION, 15, 20, false, false, true));
 		        		break;
 		        	case 1: // Paralysis effect
 		        		if (!entity.hasEffect(InitEffects.CM_PARALYSIS.get())) entity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 50, 2, false, false, true));

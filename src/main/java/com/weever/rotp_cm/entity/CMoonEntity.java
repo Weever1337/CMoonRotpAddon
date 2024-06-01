@@ -35,14 +35,13 @@ public class CMoonEntity extends StandEntity {
     private static final DataParameter<Boolean> ATTACK_HAS_TARGET = EntityDataManager.defineId(CMoonEntity.class, DataSerializers.BOOLEAN);
     public CMoonEntity(StandEntityType<CMoonEntity> type, World world) {
         super(type, world);
-    } // Tysm Purple Haze Addon! :D
+    }
 
     private LivingEntity autoAttackTarget = null;
     boolean barrier;
 
     public void retractWhenOver() {
         if (!this.isFollowingUser()) {
-            //this.setManualControl(false, false);
             entityData.set(ATTACK_HAS_TARGET, false);
             this.retractStand(false);
         }
@@ -71,6 +70,7 @@ public class CMoonEntity extends StandEntity {
     public void setBarrOrNot(boolean set) { this.barrier = set; }
     
     public boolean isBarr() { return barrier; }
+    public boolean isAtt() { return autoAttackTarget != null; }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -113,6 +113,9 @@ public class CMoonEntity extends StandEntity {
             autoAttackTarget = null;
             this.stopTask();
             this.retractWhenOver();
+        } else if (autoAttackTarget != null && isManuallyControlled()) {
+	        autoAttackTarget = null;
+	        this.retractWhenOver();
         }
 
         if (autoAttackTarget != null) {
@@ -142,7 +145,7 @@ public class CMoonEntity extends StandEntity {
                 setTaskTarget(actionTarget);
             }
             else if (autoAttackTarget.isDeadOrDying() && autoAttackTarget.getMaxHealth() >= 20) {
-                this.getUser().addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 1));
+                this.getUser().addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 2, false, false, true));
             }
         } else if (this.isBarr()) {
             PlayerEntity player = (PlayerEntity) this.getUser();
@@ -163,8 +166,8 @@ public class CMoonEntity extends StandEntity {
                 if (entity instanceof LivingEntity) {
                     LivingEntity livingEntity = (LivingEntity) entity;
                     if (!livingEntity.hasEffect(Effects.LEVITATION)) {
-                        livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 100, 2, false, false, true));
-                        livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 100, 1, false, false, true));
+                        livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 15, 20, false, false, true));
+                        livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 15, 1, false, false, true));
                         power.consumeStamina(100);
                     }
                 } else if (

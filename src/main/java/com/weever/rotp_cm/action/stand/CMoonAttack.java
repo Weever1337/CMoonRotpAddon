@@ -11,9 +11,12 @@ import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.weever.rotp_cm.entity.CMoonEntity;
+import com.weever.rotp_cm.network.AddonPackets;
+import com.weever.rotp_cm.network.server.AddTagPacket;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -22,12 +25,7 @@ public class CMoonAttack extends StandEntityAction {
     public CMoonAttack(StandEntityAction.Builder builder){
         super(builder);
     }
-
-    @Override
-    protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        return ActionConditionResult.POSITIVE;
-    }
-
+    
     @Override
     public void standPerform(World world, StandEntity standEntity, IStandPower userPower, StandEntityTask task) {
         if (!world.isClientSide()) {
