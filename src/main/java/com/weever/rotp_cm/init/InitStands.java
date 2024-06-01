@@ -151,7 +151,7 @@ public class InitStands {
                             CMOON_AUTO_ATTACK.get()
                     )
                     .defaultStats(StandStats.class, new StandStats.Builder()
-                            .power(7)
+                            .power(8)
                             .speed(13)
                             .range(250, 300)
                             .durability(8)
