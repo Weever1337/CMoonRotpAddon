@@ -20,8 +20,9 @@
   "jojo.message.action_condition.cant_control_stand": "Стенд сейчас неуправляем",
   "jojo.message.action_condition.cant_unsummon_stand": "Нельзя отозвать стенд",
   "jojo.message.action_condition.cant_choose_abilities": "Невозможно выбрать две способности одновременно",
+  "jojo.message.action_condition.cant_attack_self": "Нельзя атаковать себя",
   "effect.rotp_cm.cm_inversion": "Инверсия",
   "effect.rotp_cm.cm_awakening": "Пробуждение",
   "effect.rotp_cm.cm_paralysis": "Паралич",
-  "effect.rotp_cm.cm_gravitation": "Гравитация"
+  "effect.rotp_cm.cm_gravity": "Гравитация"
 }

@@ -30,20 +30,11 @@ public class CMoonInversionPunch extends StandEntityHeavyAttack {
     @Override
     public StandEntityPunch punchEntity(StandEntity stand, Entity target, StandEntityDamageSource dmgSource) {
         if (!target.level.isClientSide()) {
-            LivingEntity user = stand.getUser();
-            int amplifier;
-            if (!user.hasEffect(InitEffects.CM_AWAKENING.get())) {
-                amplifier = 0;
-            } else amplifier = user.getEffect(InitEffects.CM_AWAKENING.get()).getAmplifier();
-
             if (target instanceof LivingEntity) {
                 LivingEntity livingTarget = (LivingEntity) target;
 
                 if (!livingTarget.hasEffect(InitEffects.CM_INVERSION.get()))
-                    ((LivingEntity) target).addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), 200, amplifier + 3, false, false, true));
-            }
-            if (user.hasEffect(InitEffects.CM_AWAKENING.get())) {
-                target.hurt(dmgSource, amplifier + 1);
+                    ((LivingEntity) target).addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), 150, 1, false, false, true));
             }
         }
         return super.punchEntity(stand, target, dmgSource)

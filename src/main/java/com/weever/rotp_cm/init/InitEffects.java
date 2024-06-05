@@ -14,12 +14,15 @@ public class InitEffects {
             RotpCMoonAddon.MOD_ID
     );
     public static final RegistryObject<Effect> CM_INVERSION = EFFECTS.register("cm_inversion",
-            () -> new CMoonInversion(0x00FF00)
+            () -> new InversionEffect(0x00FF00)
     );
     public static final RegistryObject<Effect> CM_AWAKENING = EFFECTS.register("cm_awakening",
-            () -> new CMoonAwakening(0xff0000)
+            () -> new AwakeningEffect(0xff0000)
     );
     public static final RegistryObject<Effect> CM_PARALYSIS = EFFECTS.register("cm_paralysis",
-            () -> new CMoonParalysis(0x0f0f0f)
+            () -> new ParalysisEffect(0x0f0f0f)
+    );
+    public static final RegistryObject<Effect> CM_GRAVITY = EFFECTS.register("cm_gravity",
+            () -> new GravityEffect(0x63eb57)
     );
 }

@@ -49,10 +49,7 @@ public class InitSounds {
 
     public static final Supplier<SoundEvent> CMOON_AWAKENING = SOUNDS.register("cm_awakening",
             () -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_awakening")));
-    
-	public static final Supplier<SoundEvent> CMOON_SHOT = SOUNDS.register("cm_shot",
-			() -> new SoundEvent(new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_shot")));
-    
+
     public static final OstSoundList CMOON_OST = new OstSoundList(
             new ResourceLocation(RotpCMoonAddon.MOD_ID, "cm_ost"),
             SOUNDS

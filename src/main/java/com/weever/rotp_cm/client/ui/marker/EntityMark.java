@@ -3,7 +3,9 @@ package com.weever.rotp_cm.client.ui.marker;
 import com.github.standobyte.jojo.client.ui.marker.MarkerRenderer;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
+import com.github.standobyte.jojo.power.impl.stand.type.StandType;
 import com.weever.rotp_cm.RotpCMoonAddon;
+import com.weever.rotp_cm.init.InitStands;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.EntityPredicates;
@@ -13,6 +15,7 @@ import net.minecraft.world.World;
 
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 
@@ -24,8 +27,16 @@ public class EntityMark extends MarkerRenderer {
 
     @Override
     protected boolean shouldRender() {
-        return true;
-        }
+        AtomicBoolean render = new AtomicBoolean(false);
+
+        IStandPower.getStandPowerOptional(this.mc.player).ifPresent(power -> {
+            StandType<?> CM = InitStands.STAND_CMOON.getStandType();
+            render.set(power.getType() == CM);
+        });
+
+
+        return render.get();
+    }
 
     protected static class Marker extends MarkerRenderer.MarkerInstance {
         public Marker(Vector3d pos, boolean outlined) {

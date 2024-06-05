@@ -43,17 +43,15 @@ public class CMoonEffectivePunchRun extends StandEntityAction {
 				Random random = new Random();
 		        int number = random.nextInt(3);
 		        switch (number) {
-		        	case 0: // Gravitation (levitation) effect
-		        		if (!entity.hasEffect(Effects.LEVITATION)) entity.addEffect(new EffectInstance(Effects.LEVITATION, 15, 20, false, false, true));
-		        		break;
+		        	case 0: // Gravity Effect
+		        		if (!entity.hasEffect(InitEffects.CM_GRAVITY.get())) entity.addEffect(new EffectInstance(InitEffects.CM_GRAVITY.get(), 15, 1, false, false, true));
+		        		if (!entity.hasEffect(Effects.SLOW_FALLING)) entity.addEffect(new EffectInstance(Effects.SLOW_FALLING, 15*2, 12, false, false, false));
+                        break;
 		        	case 1: // Paralysis effect
 		        		if (!entity.hasEffect(InitEffects.CM_PARALYSIS.get())) entity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 50, 2, false, false, true));
 		        		break;
-		        	case 2:
+		        	case 2: // Inversion Effect
 		        		if (!entity.hasEffect(InitEffects.CM_INVERSION.get())) entity.addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), 50, 1, false, false, true));
-		        		break;
-		        	default:
-		        		entity.hurt(DamageSource.MAGIC, 2.5F);
 		        		break;
 		        }
 		        String s_id = String.valueOf(user.getUUID());

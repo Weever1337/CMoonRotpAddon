@@ -24,7 +24,7 @@ public class CMoonAwakening extends StandEntityAction {
 
     @Override
     protected ActionConditionResult checkStandConditions(StandEntity stand, IStandPower power, ActionTarget target) {
-        LivingEntity user = power.getUser();
+        LivingEntity user = stand.getUser();
         if (user.hasEffect(InitEffects.CM_AWAKENING.get())) return ActionConditionResult.NEGATIVE;
         if (power.getStamina() < 400) return ActionConditionResult.NEGATIVE;
         return ActionConditionResult.POSITIVE;
@@ -38,8 +38,8 @@ public class CMoonAwakening extends StandEntityAction {
             user.addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 1));
             user.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 30, 255));
             user.addEffect(new EffectInstance(Effects.BLINDNESS, 30, 255));
-            user.hurt(DamageSource.MAGIC, 5.5F);
             user.addEffect(new EffectInstance(InitEffects.CM_AWAKENING.get(), 5000, rand.nextInt(4), false, false, true));
+            user.addEffect(new EffectInstance(Effects.REGENERATION, 30, 255, false, false, false));
         }
     }
 }

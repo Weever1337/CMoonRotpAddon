@@ -25,25 +25,32 @@ public class CMoonAttack extends StandEntityAction {
     public CMoonAttack(StandEntityAction.Builder builder){
         super(builder);
     }
+
+    @Override
+    public ActionConditionResult checkTarget(ActionTarget target, LivingEntity user, IStandPower power) {
+        Entity targetEntity = target.getEntity();
+        if (targetEntity.is(power.getUser())) {
+            return conditionMessage("cant_attack_self");
+        }
+        return ActionConditionResult.POSITIVE;
+    }
+
+    @Override
+    public TargetRequirement getTargetRequirement() {
+        return TargetRequirement.ENTITY;
+    }
+
+    @Override
+    public boolean standCanTickPerform(World world, StandEntity standEntity, IStandPower userPower, StandEntityTask task) {
+        return task.getTarget().getType() == ActionTarget.TargetType.ENTITY;
+    }
     
     @Override
     public void standPerform(World world, StandEntity standEntity, IStandPower userPower, StandEntityTask task) {
         if (!world.isClientSide()) {
             CMoonEntity cMoon = (CMoonEntity) standEntity;
-            Entity cameraEntity = standEntity.isManuallyControlled() ? standEntity : userPower.getUser();
-            Vector3d eyePos = cameraEntity.getEyePosition(1);
-            AxisAlignedBB targetsBox = new AxisAlignedBB(eyePos, eyePos).inflate(32, 32, 32);
-            List<Entity> potentialTargets = world.getEntities(cMoon, targetsBox,
-                    entity -> (entity instanceof LivingEntity && cMoon.checkTargets(entity)));
-            Vector3d lookVec = cameraEntity.getLookAngle();
-            Optional<Entity> entityLookedAt = potentialTargets.stream().max(Comparator.comparingDouble(
-                    entity -> {
-                        Vector3d targetPos = entity.getBoundingBox().getCenter();
-                        Vector3d vecToTarget = targetPos.subtract(eyePos).normalize();
-                        double angleCos = lookVec.dot(vecToTarget);
-                        return angleCos;
-                    }));
-            entityLookedAt.ifPresent(target -> cMoon.setAutoAttackTarget((LivingEntity) target));
+            Entity targetEntity = task.getTarget().getEntity();
+            cMoon.setAutoAttackTarget((LivingEntity) targetEntity);
         }
     }
 }

@@ -69,11 +69,20 @@ public class InitStands {
             () -> new CMoonEffectivePunchQuit(new StandEntityAction.Builder()
             		.standWindupDuration(5)
                     .staminaCost(50F)
-                    .shiftVariationOf(CMOON_EFFECTIVE_PUNCH)
                     .shiftVariationOf(CMOON_EFFECTIVE_PUNCH_RUN)));
+
+    public static final RegistryObject<StandEntityAction> CMOON_GRAVITATIONAL_BARRIER = ACTIONS.register("cm_gravitational_barrier",
+            () -> new CMoonGravitationalBarrier(new StandEntityAction.Builder().cooldown(30).standUserWalkSpeed(0.25f)
+                    .resolveLevelToUnlock(3)
+                    .partsRequired(StandPart.MAIN_BODY)
+                    .staminaCostTick(300F)
+                    .standPose(CMoonGravitationalBarrier.POSE)
+                    .holdToFire(20, false)
+                    .shout(InitSounds.CMOON_SUMMON_VOICELINE)
+            ));
     
     public static final RegistryObject<StandEntityAction> CMOON_BLOCK = ACTIONS.register("cm_block",
-            () -> new CMoonBlock ());
+            CMoonBlock::new);
 
     public static final RegistryObject<StandEntityAction> CMOON_ATTACK_BARRAGE = ACTIONS.register("cm_attack_barrage",
             () -> new CMoonAttackBarrage(new StandEntityMeleeBarrage.Builder()
@@ -83,9 +92,12 @@ public class InitStands {
     
     public static final RegistryObject<StandEntityAction> CMOON_MOON = ACTIONS.register("cm_moon",
             () -> new CMoonMoon(new StandEntityAction.Builder().cooldown(250)
+                    .standAutoSummonMode(StandEntityAction.AutoSummonMode.OFF_ARM)
                     .holdToFire(20, false)
                     .staminaCostTick(100F)
-                    .partsRequired(StandPart.MAIN_BODY)
+                    //.standOffsetFromUser(0.667, 0.2, 0)
+                    .standPose(CMoonMoon.POSE)
+                    .partsRequired(StandPart.ARMS)
                     .shout(InitSounds.CMOON_MOON)
             ));
 
@@ -99,8 +111,10 @@ public class InitStands {
 
     public static final RegistryObject<StandEntityAction> CMOON_GRAVITATION = ACTIONS.register("cm_gravitational_changes",
             () -> new CMoonGravitationalChanges(new StandEntityAction.Builder().cooldown(220).standUserWalkSpeed(0.25f)
+                    .standAutoSummonMode(StandEntityAction.AutoSummonMode.OFF_ARM)
                     .shout(InitSounds.CMOON_MOON)
                     .resolveLevelToUnlock(3)
+                    .standPose(CMoonGravitationalChanges.POSE)
                     .holdToFire(20, false)
                     .staminaCostTick(200F)
                     .partsRequired(StandPart.MAIN_BODY)
@@ -121,21 +135,12 @@ public class InitStands {
                     .resolveLevelToUnlock(3)
                     .cooldown(100)
                     .standSound(InitSounds.CMOON_ATTACK)));
-    
-    public static final RegistryObject<StandEntityAction> CMOON_GRAVITATIONAL_BARRIER = ACTIONS.register("cm_gravitational_barrier",
-            () -> new CMoonGravitationalBarrier(new StandEntityAction.Builder().cooldown(30).standUserWalkSpeed(0.25f)
-                    .resolveLevelToUnlock(3)
-                    .partsRequired(StandPart.MAIN_BODY)
-                    .staminaCostTick(300F)
-                    .holdToFire(20, false)
-                    .shout(InitSounds.CMOON_SUMMON_VOICELINE)
-            ));
 
     public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<CMoonEntity>> STAND_CMOON =
             new EntityStandRegistryObject<>("cmoon",
                     STANDS, 
                     () -> new EntityStandType.Builder<StandStats>()
-                    .color(0x248f2d)
+                    .color(0x3eab3f)
                     .storyPartName(ModStandsInit.PART_6_NAME)
                     .leftClickHotbar(
                             CMOON_PUNCH.get(),
@@ -151,9 +156,9 @@ public class InitStands {
                             CMOON_AUTO_ATTACK.get()
                     )
                     .defaultStats(StandStats.class, new StandStats.Builder()
-                            .power(8)
+                            .power(9)
                             .speed(13)
-                            .range(250, 300)
+                            .range(200, 300)
                             .durability(8)
                             .precision(6)
                             .build())

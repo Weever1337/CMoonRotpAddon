@@ -5,11 +5,13 @@ import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
+import com.github.standobyte.jojo.entity.stand.StandPose;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.weever.rotp_cm.entity.CMoonEntity;
 
 import net.minecraft.world.World;
 public class CMoonGravitationalBarrier extends StandEntityAction {
+    public static final StandPose POSE = new StandPose("CM_GRAVITATIONAL_BARRIER");
     public CMoonGravitationalBarrier(StandEntityAction.Builder builder){
         super(builder);
     }

@@ -9,6 +9,7 @@ import com.github.standobyte.jojo.init.ModParticles;
 import com.github.standobyte.jojo.init.ModStatusEffects;
 import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
+import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.mc.MCUtil;
 import com.weever.rotp_cm.init.InitEffects;
 import com.weever.rotp_cm.init.InitSounds;
@@ -114,8 +115,9 @@ public class CMoonEntity extends StandEntity {
             this.stopTask();
             this.retractWhenOver();
         } else if (autoAttackTarget != null && isManuallyControlled()) {
-	        autoAttackTarget = null;
-	        this.retractWhenOver();
+            autoAttackTarget = null;
+            this.retractWhenOver();
+            StandUtil.setManualControl((PlayerEntity) user, false, false);
         }
 
         if (autoAttackTarget != null) {
@@ -145,7 +147,7 @@ public class CMoonEntity extends StandEntity {
                 setTaskTarget(actionTarget);
             }
             else if (autoAttackTarget.isDeadOrDying() && autoAttackTarget.getMaxHealth() >= 20) {
-                this.getUser().addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 2, false, false, true));
+                this.getUser().addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 4, false, false, true));
             }
         } else if (this.isBarr()) {
             PlayerEntity player = (PlayerEntity) this.getUser();
@@ -165,9 +167,11 @@ public class CMoonEntity extends StandEntity {
             ) {
                 if (entity instanceof LivingEntity) {
                     LivingEntity livingEntity = (LivingEntity) entity;
-                    if (!livingEntity.hasEffect(Effects.LEVITATION)) {
-                        livingEntity.addEffect(new EffectInstance(Effects.LEVITATION, 15, 20, false, false, true));
-                        livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), 15, 1, false, false, true));
+                    int duration = 15;
+                    if (!livingEntity.hasEffect(InitEffects.CM_GRAVITY.get())) {
+                        livingEntity.addEffect(new EffectInstance(InitEffects.CM_GRAVITY.get(), duration, 3, false, false, true));
+                        livingEntity.addEffect(new EffectInstance(Effects.SLOW_FALLING, duration*3, 12, false, false, true));
+                        livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), duration, 1, false, false, true));
                         power.consumeStamina(100);
                     }
                 } else if (
@@ -177,10 +181,9 @@ public class CMoonEntity extends StandEntity {
                 ) {
                 	continue;
                 } else {
-                    double x = entity.getX() ;
+                    double x = entity.getX();
                     double y = entity.getY();
                     double z = entity.getZ();
-                    //entity.level.addParticle(ParticleTypes.CRIT, x, y, z, 0, 0, 0);
                     entity.level.addParticle(ModParticles.CD_RESTORATION.get(), x, y, z, 0, 0, 0);
                     entity.remove();
                     power.consumeStamina(25);

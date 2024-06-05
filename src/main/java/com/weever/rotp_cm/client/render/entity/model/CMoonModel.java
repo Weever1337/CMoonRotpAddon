@@ -2,13 +2,20 @@ package com.weever.rotp_cm.client.render.entity.model;
 
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.client.render.entity.model.stand.HumanoidStandModel;
+import com.github.standobyte.jojo.client.render.entity.pose.ConditionalModelPose;
 import com.github.standobyte.jojo.client.render.entity.pose.ModelPose;
 import com.github.standobyte.jojo.client.render.entity.pose.RotationAngle;
+import com.github.standobyte.jojo.client.render.entity.pose.anim.CopyBipedUserPose;
 import com.github.standobyte.jojo.client.render.entity.pose.anim.PosedActionAnimation;
 import com.github.standobyte.jojo.entity.stand.StandPose;
 
+import com.github.standobyte.jojo.entity.stand.stands.CrazyDiamondEntity;
+import com.weever.rotp_cm.action.stand.CMoonGravitationalBarrier;
+import com.weever.rotp_cm.action.stand.CMoonGravitationalChanges;
+import com.weever.rotp_cm.action.stand.CMoonMoon;
 import com.weever.rotp_cm.entity.CMoonEntity;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.HandSide;
 
 // Made with Blockbench 4.8.1
 // Exported for Minecraft version 1.15 - 1.16 with Mojang mappings
@@ -211,58 +218,62 @@ public class CMoonModel extends HumanoidStandModel<CMoonEntity> {
     }
 
     @Override
-    protected RotationAngle[][] initSummonPoseRotations() {
-        return new RotationAngle[][] {
-                new RotationAngle[] {
-                        new RotationAngle(body, 0.0F, 0.7854F, 0.0F),
-                        new RotationAngle(leftArm, 0.0F, 0.0F, -0.9599F),
-                        new RotationAngle(leftForeArm, 0.0F, 1.5708F, 0.7418F),
-                        new RotationAngle(rightArm, -1.5708F, 0.7854F, 0.0F),
-                        new RotationAngle(rightForeArm, 0.0F, 0.0F, -1.5708F),
-                        new RotationAngle(leftLeg, -0.3054F, 0.0F, 0.0F),
-                        new RotationAngle(leftLowerLeg, 0.48F, 0.0F, 0.0F),
-                        new RotationAngle(rightLeg, 0.3927F, 0.0F, 0.0F),
-                        new RotationAngle(rightLowerLeg, 0.3054F, 0.0F, 0.0F),
-                },
-                new RotationAngle[] {
-                        new RotationAngle(head, -0.2618F, 0.0F, 0.0F),
-                        new RotationAngle(leftArm, -2.3562F, 1.2217F, -1.5708F),
-                        new RotationAngle(leftForeArm, -1.9635F, -0.3747F, 0.2291F),
-                        new RotationAngle(rightArm, 0.0F, 0.2182F, 0.7854F),
-                        new RotationAngle(rightForeArm, 0.2618F, 0.0F, -1.5708F),
-                        new RotationAngle(leftLeg, -1.6581F, 0.0F, 0.0F),
-                        new RotationAngle(leftLegJoint, 0.7418F, 0.0F, 0.0F),
-                        new RotationAngle(leftLowerLeg, 1.789F, 0.0F, 0.0F),
-                        new RotationAngle(rightLeg, -0.1745F, 0.0F, 0.0F),
-                        new RotationAngle(rightLowerLeg, 0.3491F, 0.0F, 0.0F),
-                }
+    protected void initActionPoses() {
+        actionAnim.put(CMoonGravitationalChanges.POSE, new PosedActionAnimation.Builder<CMoonEntity>()
+                .addPose(StandEntityAction.Phase.BUTTON_HOLD, new ModelPose<>(new RotationAngle[] {
+                        RotationAngle.fromDegrees(leftArm, 0, 0, -147.5),
+                        RotationAngle.fromDegrees(rightArm, 0, 0, 147.5)
+                }))
+                .build(idlePose));
+
+        actionAnim.put(CMoonGravitationalBarrier.POSE, new PosedActionAnimation.Builder<CMoonEntity>()
+                .addPose(StandEntityAction.Phase.BUTTON_HOLD, new ModelPose<>(new RotationAngle[] {
+                        RotationAngle.fromDegrees(leftArm, 0, 0, -147.5),
+                        RotationAngle.fromDegrees(rightArm, 0, 0, 147.5)
+                }))
+                .build(idlePose));
+
+        RotationAngle[] moonRotations = new RotationAngle[] {
+                RotationAngle.fromDegrees(head, 31.301F, 27.0408F, 3.6059F),
+                RotationAngle.fromDegrees(body, 5.7686F, 29.8742F, 5.3807F),
+                RotationAngle.fromDegrees(upperPart, 0.0F, 6.0F, 0.0F),
+                RotationAngle.fromDegrees(leftArm, -33.6218F, 25.82F, -22.9983F),
+                RotationAngle.fromDegrees(leftForeArm, -53.621F, -34.2195F, 50.6576F),
+                RotationAngle.fromDegrees(rightArm, -45.3923F, -27.0377F, 10.4828F),
+                RotationAngle.fromDegrees(rightForeArm, -38.0639F, -35.8085F, 4.6156F)
         };
+        actionAnim.put(CMoonMoon.POSE, new PosedActionAnimation.Builder<CMoonEntity>()
+                .addPose(StandEntityAction.Phase.BUTTON_HOLD, new ConditionalModelPose<CMoonEntity>()
+                        .addPose(stand -> !stand.isArmsOnlyMode() && stand.getUser() != null,
+                                new ModelPose<>(mirrorAngles(moonRotations)))
+                )
+                .build(idlePose));
+
+        super.initActionPoses();
     }
-
-
 
     @Override
     protected ModelPose<CMoonEntity> initIdlePose() {
         return new ModelPose<>(new RotationAngle[] {
-                new RotationAngle(leftArm, -0.0425F, 0.7769F, -0.1841F),
-                new RotationAngle(leftForeArm, 0.0F, 0.0F, 0.0F),
-                new RotationAngle(rightArm, 0.0003F, -0.7816F, 0.1231F),
-                new RotationAngle(rightForeArm, 0.0F, 0.0F, 0.0F),
-                new RotationAngle(leftLeg, -0.2182F, 0.0F, -0.0873F),
-                new RotationAngle(leftLowerLeg, 0.7854F, 0.0F, 0.0F),
-                new RotationAngle(rightLeg, -0.1309F, 0.0F, 0.0873F),
-                new RotationAngle(rightLowerLeg, 0.3054F, 0.0F, 0.0F),
+                RotationAngle.fromDegrees(body, 0, 0, 0),
+                RotationAngle.fromDegrees(upperPart, 0, 0, 0),
+                RotationAngle.fromDegrees(torso, 0, 0, 0),
+                RotationAngle.fromDegrees(leftArm, 0, 5, -2.5215),
+                RotationAngle.fromDegrees(leftForeArm, 0, 0, 0),
+                RotationAngle.fromDegrees(rightArm, -0.329, -7.4928, 2.5215),
+                RotationAngle.fromDegrees(rightForeArm, 0, 0, 0),
+                RotationAngle.fromDegrees(rightLeg, -4.6673, 7.7107, 2.5132),
+                RotationAngle.fromDegrees(rightLowerLeg, 5, 0, 0),
+                RotationAngle.fromDegrees(leftLeg, -2.5024, -2.4976, -2.3909),
+                RotationAngle.fromDegrees(leftLowerLeg, 2.5, 0, 0)
         });
     }
 
     @Override
     protected ModelPose<CMoonEntity> initIdlePose2Loop() {
         return new ModelPose<>(new RotationAngle[] {
-                new RotationAngle(leftArm, -0.0852F, 0.7741F, -0.2451F),
-                new RotationAngle(leftForeArm, 0.0F, 0.0F, 0.0F),
-                new RotationAngle(rightArm, -0.0429F, -0.7807F, 0.1845F),
-                new RotationAngle(rightForeArm, 0.0F, 0.0F, 0.0F)
+                RotationAngle.fromDegrees(leftArm, 0, 5, -2.5215),
+                RotationAngle.fromDegrees(rightArm, -0.329, -7.4928, 2.5215),
         });
-
     }
 }

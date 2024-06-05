@@ -20,10 +20,9 @@
   "jojo.message.action_condition.cant_control_stand": "Can't control the stand now",
   "jojo.message.action_condition.cant_unsummon_stand": "Can't unsummon the stand now",
   "jojo.message.action_condition.cant_choose_abilities": "Can't select two abilities at the same time",
+  "jojo.message.action_condition.cant_attack_self": "Can't attack yourself",
   "effect.rotp_cm.cm_inversion": "Inversion",
   "effect.rotp_cm.cm_awakening": "Awakening",
   "effect.rotp_cm.cm_paralysis": "Paralysis",
-  "effect.rotp_cm.cm_gravitation": "Gravitation",
-  "item.rotp_cm.holygun": "Holy Gun",
-  "item.rotp_cm.holygun.reload_prompt": "%s+%s to reload (consumes iron nuggets and gunpowder)"
+  "effect.rotp_cm.cm_gravity": "Gravity"
 }
