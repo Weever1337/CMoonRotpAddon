@@ -21,7 +21,7 @@ public class InversionEffect extends UncurableEffect {
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         if (!entity.level.isClientSide()) {
             if (entity.tickCount % amplifier == 0)
-                entity.hurt(DamageSource.MAGIC, Math.min(2, entity.getHealth() * 0.5F));
+                entity.hurt(new DamageSource("cmoon").bypassArmor(), Math.min(1, entity.getHealth() * 0.5F));
         }
     }
 

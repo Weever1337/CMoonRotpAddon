@@ -11,6 +11,7 @@ import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.mc.MCUtil;
+import com.github.standobyte.jojo.util.mod.JojoModUtil;
 import com.weever.rotp_cm.init.InitEffects;
 import com.weever.rotp_cm.init.InitSounds;
 import com.weever.rotp_cm.init.InitStands;
@@ -18,6 +19,7 @@ import com.weever.rotp_cm.init.InitStands;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -147,7 +149,7 @@ public class CMoonEntity extends StandEntity {
                 setTaskTarget(actionTarget);
             }
             else if (autoAttackTarget.isDeadOrDying() && autoAttackTarget.getMaxHealth() >= 20) {
-                this.getUser().addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 4, false, false, true));
+                this.getUser().addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 4, false, false, false));
             }
         } else if (this.isBarr()) {
             PlayerEntity player = (PlayerEntity) this.getUser();
@@ -163,8 +165,18 @@ public class CMoonEntity extends StandEntity {
             }
             for (Entity entity : MCUtil.entitiesAround(
                     Entity.class, player, 5, false,
-                    entity -> (!(entity instanceof StandEntity)))
+                    entity -> (!(entity instanceof StandEntity)
+                            && !(entity instanceof ItemEntity)
+                            && !(entity instanceof ExperienceOrbEntity)
+                            && !(entity instanceof FallingBlockEntity)
+                            && !(entity instanceof ArmorStandEntity)
+                    )
+                )
             ) {
+                double x = entity.getX();
+                double y = entity.getY();
+                double z = entity.getZ();
+                entity.level.addParticle(ModParticles.HAMON_SPARK_SILVER.get(), x, y, z, 0, 0, 0);
                 if (entity instanceof LivingEntity) {
                     LivingEntity livingEntity = (LivingEntity) entity;
                     int duration = 15;
@@ -172,20 +184,10 @@ public class CMoonEntity extends StandEntity {
                         livingEntity.addEffect(new EffectInstance(InitEffects.CM_GRAVITY.get(), duration, 3, false, false, true));
                         livingEntity.addEffect(new EffectInstance(Effects.SLOW_FALLING, duration*3, 12, false, false, true));
                         livingEntity.addEffect(new EffectInstance(InitEffects.CM_PARALYSIS.get(), duration, 1, false, false, true));
-                        power.consumeStamina(100);
+                        power.consumeStamina(75);
                     }
-                } else if (
-                		entity instanceof ItemEntity 
-                		|| entity instanceof ExperienceOrbEntity 
-                		|| entity instanceof FallingBlockEntity
-                ) {
-                	continue;
                 } else {
-                    double x = entity.getX();
-                    double y = entity.getY();
-                    double z = entity.getZ();
-                    entity.level.addParticle(ModParticles.CD_RESTORATION.get(), x, y, z, 0, 0, 0);
-                    entity.remove();
+                    JojoModUtil.deflectProjectile(entity, player.getDeltaMovement()); // delta: down
                     power.consumeStamina(25);
                 }
             }

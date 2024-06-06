@@ -35,9 +35,9 @@ public class CMoonAwakening extends StandEntityAction {
         if (!world.isClientSide()) {
             Random rand = new Random();
             LivingEntity user = userPower.getUser();
-            user.addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 1));
-            user.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 30, 255));
-            user.addEffect(new EffectInstance(Effects.BLINDNESS, 30, 255));
+            user.addEffect(new EffectInstance(ModStatusEffects.STAMINA_REGEN.get(), 100, 1, false, false, false));
+            user.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 30, 255, false, false, false));
+            user.addEffect(new EffectInstance(Effects.BLINDNESS, 30, 255, false, false, false));
             user.addEffect(new EffectInstance(InitEffects.CM_AWAKENING.get(), 5000, rand.nextInt(4), false, false, true));
             user.addEffect(new EffectInstance(Effects.REGENERATION, 30, 255, false, false, false));
         }
