@@ -1,0 +1,28 @@
+{
+  "entity.rotp_cm.cmoon": "C-Moon",
+  "stand.rotp_cm.cmoon": "C-Moon",
+
+  "action.rotp_cm.cm_punch": "轻击",
+  "action.rotp_cm.cm_heavy_punch": "重击",
+  "action.rotp_cm.cm_inversion_punch": "反转引力攻击",
+  "action.rotp_cm.cm_effective_punch": "内翻拳",
+  "action.rotp_cm.cm_effective_punch_quit": "取消内翻",
+  "action.rotp_cm.cm_effective_punch_run": "内翻他!",
+  "action.rotp_cm.cm_barrage": "超高速连打",
+  "action.rotp_cm.cm_block": "防御",
+  "action.rotp_cm.cm_moon": "你好，月亮!",
+  "action.rotp_cm.cm_go_to_moon": "送去月亮!",
+  "action.rotp_cm.cm_attack": "攻击他!",
+  "action.rotp_cm.cm_gravitational_changes": "引力异常化",
+  "action.rotp_cm.cm_awakening": "觉醒",
+  "action.rotp_cm.cm_gravitational_barrier": "引力屏障",
+
+  "jojo.message.action_condition.cant_control_stand": "现在你不能控制你的替身",
+  "jojo.message.action_condition.cant_unsummon_stand": "无法回收替身",
+  "jojo.message.action_condition.cant_choose_abilities": "无法同时选择两个技能",
+  "jojo.message.action_condition.cant_attack_self": "不能攻击自己",
+  "effect.rotp_cm.cm_inversion": "反转",
+  "effect.rotp_cm.cm_awakening": "觉醒",
+  "effect.rotp_cm.cm_paralysis": "麻痹",
+  "effect.rotp_cm.cm_gravity": "重力"
+}
