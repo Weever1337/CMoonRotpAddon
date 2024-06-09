@@ -161,6 +161,7 @@ public class InitStands {
                             .range(200, 300)
                             .durability(8)
                             .precision(6)
+                            .randomWeight(1)
                             .build())
                     .addSummonShout(InitSounds.CMOON_SUMMON_VOICELINE)
                     .addOst(InitSounds.CMOON_OST)
