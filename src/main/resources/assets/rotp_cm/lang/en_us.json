@@ -3,26 +3,14 @@
   "stand.rotp_cm.cmoon": "C-Moon",
 
   "action.rotp_cm.cm_punch": "Punch",
+  "action.rotp_cm.cm_barrage" : "Inversional Rush",
   "action.rotp_cm.cm_heavy_punch": "Heavy Punch",
-  "action.rotp_cm.cm_inversion_punch": "Inversion Punch",
-  "action.rotp_cm.cm_effective_punch": "Effective Punch",
-  "action.rotp_cm.cm_effective_punch_quit": "Quit from Effective Punch",
-  "action.rotp_cm.cm_effective_punch_run": "Effective him!",
-  "action.rotp_cm.cm_barrage": "Barrage",
+  "action.rotp_cm.cm_heart_inversion": "Heart Inversion",
   "action.rotp_cm.cm_block": "Block",
-  "action.rotp_cm.cm_moon": "Hello, Moon!",
-  "action.rotp_cm.cm_go_to_moon": "Send to Moon!",
-  "action.rotp_cm.cm_attack": "Attack him!",
-  "action.rotp_cm.cm_gravitational_changes": "Gravitational Changes",
-  "action.rotp_cm.cm_awakening": "Awakening",
-  "action.rotp_cm.cm_gravitational_barrier": "Gravitational Barrier",
+  "action.rotp_cm.cm_gravitational_shift": "Gravitational Shift",
+  "action.rotp_cm.cm_gravitational_shift.param": "Gravitational Shift: Activated",
+  "action.rotp_cm.cm_destroy": "Destroy",
 
-  "jojo.message.action_condition.cant_control_stand": "Can't control the stand now",
-  "jojo.message.action_condition.cant_unsummon_stand": "Can't unsummon the stand now",
-  "jojo.message.action_condition.cant_choose_abilities": "Can't select two abilities at the same time",
-  "jojo.message.action_condition.cant_attack_self": "Can't attack yourself",
   "effect.rotp_cm.cm_inversion": "Inversion",
-  "effect.rotp_cm.cm_awakening": "Awakening",
-  "effect.rotp_cm.cm_paralysis": "Paralysis",
-  "effect.rotp_cm.cm_gravity": "Gravity"
+  "effect.rotp_cm.cm_shift": "Gravitational Shift"
 }

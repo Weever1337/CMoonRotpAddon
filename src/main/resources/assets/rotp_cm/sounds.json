@@ -1,30 +1,26 @@
 {
   "cm_summon": {
-    "sounds": [ "rotp_cm:stand/cm_summon", "rotp_cm:stand/cm_summon2" ]
+    "sounds": [ "rotp_cm:cm_summon" ]
   },
-  "cm_light_punch": {
-    "sounds": [ "rotp_cm:stand/cm_light_punch1", "rotp_cm:stand/cm_light_punch2", "rotp_cm:stand/cm_light_punch3", "rotp_cm:stand/cm_light_punch4" ]
+  "cm_unsummon": {
+    "sounds": [ "rotp_cm:cm_unsummon" ]
   },
-  "cm_heavy_punch": {
-    "sounds": [ "rotp_cm:stand/cm_heavy_punch", "rotp_cm:stand/cm_heavy_punch2", "rotp_cm:stand/cm_heavy_punch3" ]
+  "cm_punch": {
+    "sounds": [ "rotp_cm:cm_punch1", "rotp_cm:cm_punch2", "rotp_cm:cm_punch3", "rotp_cm:cm_punch4" ]
   },
   "cm_barrage": {
-    "sounds": [ "rotp_cm:stand/cm_barrage", "rotp_cm:stand/cm_barrage2" ]
+    "sounds": [ "rotp_cm:cm_barrage" ]
   },
-
-  "cm_moon": {
-    "sounds": [ "rotp_cm:cm_moon" ]
+  "cm_heavy_punch": {
+    "sounds": [ "rotp_cm:cm_heavy_punch" ]
   },
-  "cm_attack": {
-    "sounds": [ "rotp_cm:cm_attack" ]
+  "cm_heart_inversion": {
+    "sounds": [ "rotp_cm:cm_heart_inversion" ]
   },
-  "cm_inversion_punch": {
-    "sounds": [ "rotp_cm:cm_inversion_punch", "rotp_cm:stand/cm_inversion2" ]
+  "cm_gravitational_shift": {
+    "sounds": [ "rotp_cm:cm_gravitational_shift" ]
   },
-  "cm_effective_punch": {
-    "sounds": [ "rotp_cm:stand/cm_effective_punch", "rotp_cm:stand/cm_effective_punch2"]
-  },
-  "cm_awakening":{
-    "sounds": [ "rotp_cm:cm_awakening" ]
+  "cm_inversion_hit": {
+    "sounds": [ "rotp_cm:cm_inversion_hit1", "rotp_cm:cm_inversion_hit2" ]
   }
 }

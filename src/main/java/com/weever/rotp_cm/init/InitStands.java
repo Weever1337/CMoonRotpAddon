@@ -1,175 +1,135 @@
 package com.weever.rotp_cm.init;
 
+import com.github.standobyte.jojo.JojoMod;
 import com.github.standobyte.jojo.action.Action;
-import com.github.standobyte.jojo.action.stand.StandEntityAction;
-import com.github.standobyte.jojo.action.stand.StandEntityHeavyAttack;
-import com.github.standobyte.jojo.action.stand.StandEntityLightAttack;
-import com.github.standobyte.jojo.action.stand.StandEntityMeleeBarrage;
+import com.github.standobyte.jojo.action.stand.*;
 import com.github.standobyte.jojo.entity.stand.StandEntityType;
+import com.github.standobyte.jojo.init.ModSounds;
 import com.github.standobyte.jojo.init.power.stand.EntityStandRegistryObject;
 import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
-import com.github.standobyte.jojo.power.impl.stand.StandInstance.StandPart;
+import com.github.standobyte.jojo.power.impl.stand.StandInstance;
 import com.github.standobyte.jojo.power.impl.stand.stats.StandStats;
+import com.github.standobyte.jojo.power.impl.stand.stats.TimeStopperStandStats;
 import com.github.standobyte.jojo.power.impl.stand.type.EntityStandType;
 import com.github.standobyte.jojo.power.impl.stand.type.StandType;
-import com.weever.rotp_cm.RotpCMoonAddon;
-import com.weever.rotp_cm.action.stand.*;
-import com.weever.rotp_cm.entity.CMoonEntity;
+import com.weever.rotp_cm.RotpCMAddon;
+import com.weever.rotp_cm.action.stand.Destroy;
+import com.weever.rotp_cm.action.stand.Punch;
+import com.weever.rotp_cm.action.stand.punch.DestroyBarrage;
+import com.weever.rotp_cm.action.stand.GravitationalShift;
+import com.weever.rotp_cm.action.stand.punch.HeartInversion;
+import com.weever.rotp_cm.entity.CMEntity;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
+
+import static com.github.standobyte.jojo.init.power.ModCommonRegisters.ACTIONS;
 
 public class InitStands {
     @SuppressWarnings("unchecked")
     public static final DeferredRegister<Action<?>> ACTIONS = DeferredRegister.create(
-            (Class<Action<?>>) ((Class<?>) Action.class), RotpCMoonAddon.MOD_ID);
+            (Class<Action<?>>) ((Class<?>) Action.class), RotpCMAddon.MOD_ID);
     @SuppressWarnings("unchecked")
     public static final DeferredRegister<StandType<?>> STANDS = DeferredRegister.create(
-            (Class<StandType<?>>) ((Class<?>) StandType.class), RotpCMoonAddon.MOD_ID);
+            (Class<StandType<?>>) ((Class<?>) StandType.class), RotpCMAddon.MOD_ID);
     
- // ======================================== CMOON Stand ========================================
+ // ======================================== C-Moon ========================================
+    public static final RegistryObject<StandEntityAction> CMOON_DESTROY_BARRAGE = ACTIONS.register("cm_destroy_barrage",
+         () -> new DestroyBarrage(new StandEntityMeleeBarrage.Builder()
+                 .standUserWalkSpeed(1F)
+                 .standSound(InitSounds.CM_BARRAGE)
+         )
+    );
 
+    public static final RegistryObject<TimeStop> BUY_MY_PATREON = ACTIONS.register("buy_my_patreon", // https://patreon.com/Weever
+            () -> new TimeStop(new TimeStop.Builder())
+    );
+
+    public static final RegistryObject<StandEntityHeavyAttack> CMOON_HEART_INVERSION = ACTIONS.register("cm_heart_inversion",
+            () -> new HeartInversion(new StandEntityHeavyAttack.Builder()
+                    .punchSound(InitSounds.CM_HEART_INVERSION)
+                    .staminaCost(50)
+            )
+    );
 
     public static final RegistryObject<StandEntityAction> CMOON_PUNCH = ACTIONS.register("cm_punch",
-            () -> new CMoonPunch(new StandEntityLightAttack.Builder()
-                    .punchSound(InitSounds.CMOON_PUNCH_SOUND)
-                    .standSound(InitSounds.CMOON_PUNCH_LIGHT)));
-    
-    public static final RegistryObject<StandEntityAction> CMOON_BARRAGE = ACTIONS.register("cm_barrage", 
-            () -> new CMoonBarrage(new StandEntityMeleeBarrage.Builder()
-                    .barrageHitSound(InitSounds.CMOON_PUNCH_SOUND)
-                    .standSound(InitSounds.CMOON_PUNCH_BARRAGE)));
+         () -> new Punch(new StandEntityLightAttack.Builder()
+                 .punchSound(InitSounds.CM_PUNCH)
+         )
+    );
 
-    public static final RegistryObject<StandEntityHeavyAttack> CMOON_INVERSION_PUNCH = ACTIONS.register("cm_inversion_punch",
-            () -> new CMoonInversionPunch(new StandEntityHeavyAttack.Builder().cooldown(120)
-                    .partsRequired(StandPart.ARMS)
-                    .punchSound(InitSounds.CMOON_HEAVY_PUNCH_SOUND)
-                    .shout(InitSounds.CMOON_INVERSION_PUNCH)
-                    .staminaCostTick(50F)));
+    public static final RegistryObject<StandEntityAction> CMOON_BARRAGE = ACTIONS.register("cm_barrage",
+            () -> new StandEntityMeleeBarrage(new StandEntityMeleeBarrage.Builder()
+                    .standSound(InitSounds.CM_BARRAGE)
+            )
+    );
 
     public static final RegistryObject<StandEntityHeavyAttack> CMOON_HEAVY_PUNCH = ACTIONS.register("cm_heavy_punch",
-            () -> new CMoonHeavyPunch(new StandEntityHeavyAttack.Builder()
-                    .shiftVariationOf(CMOON_PUNCH).shiftVariationOf(CMOON_BARRAGE)
-                    .setFinisherVariation(CMOON_INVERSION_PUNCH)
-                    .punchSound(InitSounds.CMOON_HEAVY_PUNCH_SOUND)
-                    .shout (InitSounds.CMOON_PUNCH_HEAVY)
-                    .partsRequired(StandPart.ARMS)));
-    
-    public static final RegistryObject<StandEntityHeavyAttack> CMOON_EFFECTIVE_PUNCH = ACTIONS.register("cm_effective_punch",
-            () -> new CMoonEffectivePunch(new StandEntityHeavyAttack.Builder().cooldown(120)
-                    .partsRequired(StandPart.ARMS)
-                    .standSound(InitSounds.CMOON_EFFECTIVE_PUNCH)
-                    .staminaCostTick(50F)));
-    
-    public static final RegistryObject<StandEntityAction> CMOON_EFFECTIVE_PUNCH_RUN = ACTIONS.register("cm_effective_punch_run",
-            () -> new CMoonEffectivePunchRun(new StandEntityAction.Builder().standWindupDuration(5)
-                    .staminaCost(50F)));
-    
-    public static final RegistryObject<StandEntityAction> CMOON_EFFECTIVE_PUNCH_QUIT = ACTIONS.register("cm_effective_punch_quit",
-            () -> new CMoonEffectivePunchQuit(new StandEntityAction.Builder()
-            		.standWindupDuration(5)
-                    .staminaCost(50F)
-                    .shiftVariationOf(CMOON_EFFECTIVE_PUNCH_RUN)));
+            () -> new StandEntityHeavyAttack(new StandEntityHeavyAttack.Builder()
+                    .shiftVariationOf(CMOON_BARRAGE)
+                    .shiftVariationOf(CMOON_PUNCH)
+                    .setFinisherVariation(CMOON_HEART_INVERSION)
+                    .partsRequired(StandInstance.StandPart.ARMS)
+                    .punchSound(InitSounds.CM_HEAVY_PUNCH)
+            )
+    );
 
-    public static final RegistryObject<StandEntityAction> CMOON_GRAVITATIONAL_BARRIER = ACTIONS.register("cm_gravitational_barrier",
-            () -> new CMoonGravitationalBarrier(new StandEntityAction.Builder().cooldown(30).standUserWalkSpeed(0.25f)
-                    .resolveLevelToUnlock(3)
-                    .partsRequired(StandPart.MAIN_BODY)
-                    .staminaCostTick(300F)
-                    .standPose(CMoonGravitationalBarrier.POSE)
-                    .holdToFire(20, false)
-                    .shout(InitSounds.CMOON_SUMMON_VOICELINE)
-            ));
-    
     public static final RegistryObject<StandEntityAction> CMOON_BLOCK = ACTIONS.register("cm_block",
-            CMoonBlock::new);
+            StandEntityBlock::new
+    );
 
-    public static final RegistryObject<StandEntityAction> CMOON_ATTACK_BARRAGE = ACTIONS.register("cm_attack_barrage",
-            () -> new CMoonAttackBarrage(new StandEntityMeleeBarrage.Builder()
-                    .standUserWalkSpeed(1F)
-                    .barrageHitSound(InitSounds.CMOON_PUNCH_SOUND)
-                    .standSound(InitSounds.CMOON_PUNCH_BARRAGE)));
-    
-    public static final RegistryObject<StandEntityAction> CMOON_MOON = ACTIONS.register("cm_moon",
-            () -> new CMoonMoon(new StandEntityAction.Builder().cooldown(250)
-                    .standAutoSummonMode(StandEntityAction.AutoSummonMode.OFF_ARM)
-                    .holdToFire(20, false)
-                    .staminaCostTick(100F)
-                    //.standOffsetFromUser(0.667, 0.2, 0)
-                    .standPose(CMoonMoon.POSE)
-                    .partsRequired(StandPart.ARMS)
-                    .shout(InitSounds.CMOON_MOON)
-            ));
+    public static final RegistryObject<StandEntityAction> CMOON_GRAVITATIONAL_SHIFT = ACTIONS.register("cm_gravitational_shift",
+            () -> new GravitationalShift(new StandEntityAction.Builder()
+                    .standSound(InitSounds.CM_GRAVITATIONAL_SHIFT)
+                    .partsRequired(StandInstance.StandPart.MAIN_BODY)
+                    .holdToFire(25, false)
+                    .staminaCost(200)
+                    .resolveLevelToUnlock(2)
+                    .cooldown(10, 5)
+            )
+    );
 
-    public static final RegistryObject<StandEntityHeavyAttack> CMOON_GO_TO_MOON = ACTIONS.register("cm_go_to_moon",
-            () -> new CMoonGoToMoon(new StandEntityHeavyAttack.Builder().cooldown(250)
-                    .partsRequired(StandPart.MAIN_BODY)
-                    .shout(InitSounds.CMOON_MOON)
-                    .staminaCostTick(100F)
-                    .shiftVariationOf(CMOON_MOON)
-            ));
+    public static final RegistryObject<StandEntityAction> CMOON_DESTROY = ACTIONS.register("cm_destroy",
+            () -> new Destroy(new StandEntityAction.Builder().standUserWalkSpeed(0.25f)
+                    .resolveLevelToUnlock(1)
+                    .holdToFire(10, false)
+                    .cooldown(10, 10)
+            )
+    );
 
-    public static final RegistryObject<StandEntityAction> CMOON_GRAVITATION = ACTIONS.register("cm_gravitational_changes",
-            () -> new CMoonGravitationalChanges(new StandEntityAction.Builder().cooldown(220).standUserWalkSpeed(0.25f)
-                    .standAutoSummonMode(StandEntityAction.AutoSummonMode.OFF_ARM)
-                    .shout(InitSounds.CMOON_MOON)
-                    .resolveLevelToUnlock(3)
-                    .standPose(CMoonGravitationalChanges.POSE)
-                    .holdToFire(20, false)
-                    .staminaCostTick(200F)
-                    .partsRequired(StandPart.MAIN_BODY)
-            ));
-
-    public static final RegistryObject<StandEntityAction> CMOON_AWAKENING = ACTIONS.register("cm_awakening",
-            () -> new CMoonAwakening(new StandEntityAction.Builder().cooldown(2500).standUserWalkSpeed(0.25f)
-                    .resolveLevelToUnlock(3)
-                    .partsRequired(StandPart.MAIN_BODY)
-                    .holdToFire(40, false)
-                    .staminaCostTick(400F)
-                    .shout(InitSounds.CMOON_AWAKENING)
-            ));
-
-    public static final RegistryObject<StandEntityAction> CMOON_AUTO_ATTACK = ACTIONS.register("cm_attack",
-            () -> new CMoonAttack(new StandEntityAction.Builder().standUserWalkSpeed(0.25f)
-                    .holdToFire(20, false)
-                    .resolveLevelToUnlock(3)
-                    .cooldown(100)
-                    .standSound(InitSounds.CMOON_ATTACK)));
-
-    public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<CMoonEntity>> STAND_CMOON =
+    public static final EntityStandRegistryObject<EntityStandType<TimeStopperStandStats>, StandEntityType<CMEntity>> STAND_CM =
             new EntityStandRegistryObject<>("cmoon",
                     STANDS, 
-                    () -> new EntityStandType.Builder<StandStats>()
-                    .color(0x3eab3f)
+                    () -> new EntityStandType.Builder<TimeStopperStandStats>()
+                    .color(0x63f542)
                     .storyPartName(ModStandsInit.PART_6_NAME)
                     .leftClickHotbar(
-                            CMOON_PUNCH.get(),
-                            CMOON_BARRAGE.get(),
-                            CMOON_EFFECTIVE_PUNCH.get(),
-                            CMOON_GRAVITATIONAL_BARRIER.get()
-                    )
-                    .rightClickHotbar(
+                            CMOON_PUNCH.get(), // Shift Variation: Heavy Punch
+                            CMOON_BARRAGE.get() // Shift Variation: Heavy Punch
+                            // Finisher: Heart Inversion
+                    ).rightClickHotbar(
                             CMOON_BLOCK.get(),
-                            CMOON_MOON.get(),
-                            CMOON_GRAVITATION.get(),
-                            CMOON_AWAKENING.get(),
-                            CMOON_AUTO_ATTACK.get()
+                            CMOON_DESTROY.get(),
+                            CMOON_GRAVITATIONAL_SHIFT.get()
                     )
-                    .defaultStats(StandStats.class, new StandStats.Builder()
-                            .power(9)
-                            .speed(13)
+                    .defaultStats(TimeStopperStandStats.class, new TimeStopperStandStats.Builder()
+                            .power(0)
+                            .speed(11)
                             .range(200, 300)
-                            .durability(8)
-                            .precision(6)
-                            .randomWeight(1)
-                            .build())
-                    .addSummonShout(InitSounds.CMOON_SUMMON_VOICELINE)
-                    .addOst(InitSounds.CMOON_OST)
+                            .durability(8) // stamina
+                            .precision(6) // accuracy
+                            .randomWeight(0.5)
+                            .timeStopMaxTicks(0, 0)
+                            .timeStopLearningPerTick(0)
+                            .timeStopDecayPerDay(0F)
+                            .timeStopCooldownPerTick(0F)
+                            .build()
+                    )
                     .build(),
-                    
                     InitEntities.ENTITIES,
-                    () -> new StandEntityType<CMoonEntity>(CMoonEntity::new, 0.7F, 2.0F)
-                    .summonSound(InitSounds.CMOON_SUMMON_SOUND)
-                    .unsummonSound(InitSounds.CMOON_UNSUMMON_SOUND))
+                    () -> new StandEntityType<>(CMEntity::new, 0.7F, 2F)
+                            .summonSound(InitSounds.CM_SUMMON)
+                            .unsummonSound(InitSounds.CM_UNSUMMON))
             .withDefaultStandAttributes();
 }

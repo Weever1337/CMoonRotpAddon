@@ -3,26 +3,14 @@
   "stand.rotp_cm.cmoon": "C-Moon",
 
   "action.rotp_cm.cm_punch": "Удар",
-  "action.rotp_cm.cm_heavy_punch": "Тяжелый удар",
-  "action.rotp_cm.cm_inversion_punch": "Инверсионный удар",
-  "action.rotp_cm.cm_effective_punch": "Эффективный удар",
-  "action.rotp_cm.cm_effective_punch_quit": "Выход с эффективного удара",
-  "action.rotp_cm.cm_effective_punch_run": "Он эффективен!",
-  "action.rotp_cm.cm_barrage": "Шквал ударов",
+  "action.rotp_cm.cm_barrage" : "Инверсионный пик",
+  "action.rotp_cm.cm_heavy_punch": "Тяжелый Удар",
+  "action.rotp_cm.cm_heart_inversion": "Инверсия сердца",
   "action.rotp_cm.cm_block": "Блокирование",
-  "action.rotp_cm.cm_moon": "Привет, Луна!",
-  "action.rotp_cm.cm_go_to_moon": "Отправить на Луну!",
-  "action.rotp_cm.cm_attack": "Атакуй его!",
-  "action.rotp_cm.cm_gravitational_changes": "Гравитационные изменения",
-  "action.rotp_cm.cm_awakening": "Пробуждение",
-  "action.rotp_cm.cm_gravitational_barrier": "Гравитационный барьер",
+  "action.rotp_cm.cm_gravitational_shift": "Гравитационный сдвиг",
+  "action.rotp_cm.cm_gravitational_shift.param": "Гравитационный сдвиг: Активирован",
+  "action.rotp_cm.cm_destroy": "Уничтожить",
 
-  "jojo.message.action_condition.cant_control_stand": "Стенд сейчас неуправляем",
-  "jojo.message.action_condition.cant_unsummon_stand": "Нельзя отозвать стенд",
-  "jojo.message.action_condition.cant_choose_abilities": "Невозможно выбрать две способности одновременно",
-  "jojo.message.action_condition.cant_attack_self": "Нельзя атаковать себя",
   "effect.rotp_cm.cm_inversion": "Инверсия",
-  "effect.rotp_cm.cm_awakening": "Пробуждение",
-  "effect.rotp_cm.cm_paralysis": "Паралич",
-  "effect.rotp_cm.cm_gravity": "Гравитация"
+  "effect.rotp_cm.cm_shift": "Гравитационный сдвиг"
 }
