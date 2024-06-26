@@ -9,6 +9,7 @@ import com.weever.rotp_cm.init.InitStands;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -20,7 +21,7 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = RotpCMAddon.MOD_ID)
 public class GameplayHandler {
-    static int duration = 75;
+    static int duration = 100;
     @SubscribeEvent
     public static void onLivingHurtEvent(LivingHurtEvent event) {
         LivingEntity entity = event.getEntityLiving();
@@ -31,9 +32,7 @@ public class GameplayHandler {
             boolean isBuff = cmEntity.isBuff();
             if (isBuff) { duration += 45; }
             System.out.println("[C-Moon Rewrite] " + entity.getDisplayName().getString() + " was hit by " + dmgEntity.getDisplayName().getString());
-            if (!entity.hasEffect(InitEffects.CM_INVERSION.get())) {
-                entity.addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), duration, 1, false, false, true));
-            }
+            entity.addEffect(new EffectInstance(InitEffects.CM_INVERSION.get(), duration, 3, false, false, true));
             Random random = new Random();
             int randomInt = random.nextInt(3);
             switch (randomInt) {

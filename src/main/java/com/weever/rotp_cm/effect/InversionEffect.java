@@ -21,11 +21,9 @@ public class InversionEffect extends UncurableEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
-        int power = 0;
-        if (amplifier == 0) power += 1;
         if (!entity.level.isClientSide()) {
             if (entity.tickCount % amplifier / 2 == 0) {
-                entity.hurt(new DamageSource("cmoon").bypassArmor(), power*2);
+                entity.hurt(new DamageSource("cmoon").bypassArmor(), amplifier + 1);
                 //entity.level.playSound(null, entity.blockPosition(), InitSounds.CM_INVERSION_HIT.get(), SoundCategory.PLAYERS, 0.7F,1);
             }
         }
