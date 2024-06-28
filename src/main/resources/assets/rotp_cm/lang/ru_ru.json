@@ -7,10 +7,18 @@
   "action.rotp_cm.cm_heavy_punch": "Тяжелый Удар",
   "action.rotp_cm.cm_heart_inversion": "Инверсия сердца",
   "action.rotp_cm.cm_block": "Блокирование",
+  "action.rotp_cm.cm_gravity_counter": "Гравитационный каунтер",
+  "action.rotp_cm.cm_center_of_gravity": "Центр тяжести",
   "action.rotp_cm.cm_gravitational_shift": "Гравитационный сдвиг",
   "action.rotp_cm.cm_gravitational_shift.param": "Гравитационный сдвиг: Активирован",
   "action.rotp_cm.cm_destroy": "Уничтожить",
 
-  "effect.rotp_cm.cm_inversion": "Инверсия",
-  "effect.rotp_cm.cm_shift": "Гравитационный сдвиг"
+  "effect.rotp_cm.cm_inversion": "Инверсия поверхности",
+  "effect.rotp_cm.cm_shift": "Гравитационный сдвиг",
+
+  "rotp_cm.config.inversion_damage": "Инверсионный урон",
+  "rotp_cm.config.heart_inversion_damage": "Урон инверсии сердца",
+
+  "jojo.message.action_condition.cant_attack_self": "Нельзя атаковать себя",
+  "jojo.message.action_condition.cant_attack_stand": "Не может атаковать стенд"
 }

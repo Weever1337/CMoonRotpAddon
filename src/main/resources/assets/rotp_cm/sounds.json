@@ -17,8 +17,14 @@
   "cm_heart_inversion": {
     "sounds": [ "rotp_cm:cm_heart_inversion" ]
   },
-  "cm_gravitational_shift": {
-    "sounds": [ "rotp_cm:cm_gravitational_shift" ]
+  "cm_gravity_shift": {
+    "sounds": [ "rotp_cm:cm_gravity_shift" ]
+  },
+  "cm_gravity_counter": {
+    "sounds": [ "rotp_cm:cm_gravity_counter" ]
+  },
+  "cm_center_of_gravity": {
+    "sounds": [ "rotp_cm:cm_center_of_gravity" ]
   },
   "cm_inversion_hit": {
     "sounds": [ "rotp_cm:cm_inversion_hit1", "rotp_cm:cm_inversion_hit2" ]

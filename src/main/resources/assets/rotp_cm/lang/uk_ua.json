@@ -7,10 +7,18 @@
   "action.rotp_cm.cm_heavy_punch": "Важкий Удар",
   "action.rotp_cm.cm_heart_inversion": "Інверсія серця",
   "action.rotp_cm.cm_block": "Блокування",
+  "action.rotp_cm.cm_gravity_counter": "Гравітаційний каунтер",
+  "action.rotp_cm.cm_center_of_gravity": "Центр ваги",
   "action.rotp_cm.cm_gravitational_shift": "Гравітаційний зсув",
   "action.rotp_cm.cm_gravitational_shift.param": "Гравітаційний зсув: Активовано",
   "action.rotp_cm.cm_destroy": "Знищити",
 
-  "effect.rotp_cm.cm_inversion": "Інверсія",
-  "effect.rotp_cm.cm_shift": "Гравітаційний зсув"
+  "effect.rotp_cm.cm_inversion": "Інверсія поверхні",
+  "effect.rotp_cm.cm_shift": "Гравітаційний зсув",
+
+  "rotp_cm.config.inversion_damage": "Інверсійний урон",
+  "rotp_cm.config.heart_inversion_damage": "Урон інверсії серця",
+
+  "jojo.message.action_condition.cant_attack_self": "Не можна атакувати себе",
+  "jojo.message.action_condition.cant_attack_stand": "Не може атакувати стенд"
 }

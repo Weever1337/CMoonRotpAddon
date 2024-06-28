@@ -3,14 +3,22 @@
   "stand.rotp_cm.cmoon": "C-Moon",
 
   "action.rotp_cm.cm_punch": "Punch",
-  "action.rotp_cm.cm_barrage" : "Inversional Rush",
+  "action.rotp_cm.cm_barrage" : "Inversion Rush",
   "action.rotp_cm.cm_heavy_punch": "Heavy Punch",
   "action.rotp_cm.cm_heart_inversion": "Heart Inversion",
   "action.rotp_cm.cm_block": "Block",
-  "action.rotp_cm.cm_gravitational_shift": "Gravitational Shift",
-  "action.rotp_cm.cm_gravitational_shift.param": "Gravitational Shift: Activated",
+  "action.rotp_cm.cm_gravity_counter": "Gravity Counter",
+  "action.rotp_cm.cm_center_of_gravity": "Center of Gravity",
+  "action.rotp_cm.cm_gravity_shift": "Gravity Shift",
+  "action.rotp_cm.cm_gravity_shift.param": "Gravity Shift: Activated",
   "action.rotp_cm.cm_destroy": "Destroy",
 
-  "effect.rotp_cm.cm_inversion": "Inversion",
-  "effect.rotp_cm.cm_shift": "Gravitational Shift"
+  "effect.rotp_cm.cm_inversion": "Surface Inversion",
+  "effect.rotp_cm.cm_shift": "Gravity Shift",
+
+  "rotp_cm.config.inversion_damage": "Inversion Damage",
+  "rotp_cm.config.heart_inversion_damage": "Heart Inversion Damage",
+
+  "jojo.message.action_condition.cant_attack_self": "Can not attack yourself",
+  "jojo.message.action_condition.cant_attack_stand": "Can not attack stand"
 }
